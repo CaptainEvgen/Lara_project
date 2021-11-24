@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,12 +22,9 @@ use App\Http\Controllers\AdminController;
 // Route::get('/post/delete/{id}', [PostController::class,'delete'])->where(['id' => '[\d]+']);
 
 Route::get('/', [HomeController::class,'showHomePage']);
-Route::get('/admin', [AdminController::class,'showHomePage']);
-Route::match(['get', 'post'],'/login', [UserController::class,'login']);
-Route::match(['get', 'post'],'/register', [UserController::class,'register']);
+Route::get('/admin', [AdminController::class,'showHomePage'])->middleware('auth')->name('admin');
+Route::match(['get', 'post'],'/login', [UserController::class,'login'])->name('login');
+Route::get('/logout', [UserController::class,'logout'])->name('logout');
+Route::match(['get', 'post'],'/register', [UserController::class,'register'])->name('register');
+Route::match(['get', 'post'],'/newProduct', [ProductController::class,'newProduct'])->name('newProduct')->middleware('auth');
 
-//Route::get('/register', [HomeController::class,'showHomePage']);
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');

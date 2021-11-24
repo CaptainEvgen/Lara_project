@@ -20,7 +20,7 @@
                 <div class="user-sidebar__icon">
                   <img src="images/User icon.svg" alt="">
                 </div>
-                <div class="user-sidebar__name menu-caret">User
+                <div class="user-sidebar__name menu-caret">{{Auth::user()->first_name}}
                   <img src="images/arrowDown.svg" class="menu-caret__icon">
                   <ul class="caret">
                     <li class="caret__item">User 1</li>
@@ -35,7 +35,6 @@
             <div class="sidebar__item"><a href="#">Menu Two</a></div>
             <div class="sidebar__item"><a href="#">Menu Three</a></div>
             <div class="sidebar__item"><a href="#">Menu Four</a></div>
-
           </div>
           <div class="container">
             <div class="row">
@@ -53,26 +52,38 @@
                 </div>
               </div>
               <div class="col-1 offset-lg-4">
-                <div class="user-panel">
-                  <div class="user-panel__icon">
-                    <img src="images/User icon.svg" alt="">
-                    <div class="user-panel__icon--active"></div>
+                  @if (Auth::check())
+                  <div class="user-panel">
+                    <div class="user-panel__icon">
+                      <img src="images/User icon.svg" alt="">
+                      <div class="user-panel__icon--active"></div>
+                    </div>
+                    <div class="user-panel__name menu-caret">{{Auth::user()->first_name}}
+                      <img src="images/arrowDown.svg" class="menu-caret__icon">
+                      <ul class="caret">
+                        <li class="caret__item">User 1</li>
+                        <li class="caret__item">User 2</li>
+                        <li class="caret__item">User 3</li>
+                        <li class="caret__item">User 4</li>
+                      </ul>
+                    </div>
                   </div>
-                  <div class="user-panel__name menu-caret">User
-                    <img src="images/arrowDown.svg" class="menu-caret__icon">
-                    <ul class="caret">
-                      <li class="caret__item">User 1</li>
-                      <li class="caret__item">User 2</li>
-                      <li class="caret__item">User 3</li>
-                      <li class="caret__item">User 4</li>
-                    </ul>
+                  <div class="burger-menu"><img src="images/burger-menu.png" alt=""></div>
+                  @else
+                  <div class="user-panel__icon p-0">
+                    <a href="{{route('login')}}"><img src="https://img.icons8.com/ios/50/000000/login-rounded-right--v1.png"/></a>
                   </div>
-                </div>
-                <div class="burger-menu"><img src="images/burger-menu.png" alt=""></div>
+                  @endif
+
+
               </div>
             </div>
           </div>
+        @if(Session::has('message'))
+            <p class="alert alert-info">{{ Session::get('message') }}</p>
+        @endif
         </header>
+
         <main class="main">
           <section class="food-section">
             <div class="container">
