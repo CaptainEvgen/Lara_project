@@ -1,0 +1,151 @@
+/*
+ * Example section styling
+ */
+.booking
+    position: relative
+    height: 1090px
+    background-color: $thirdBcg
+    padding: 20vh 0
+    &-table
+        margin: 0 auto
+        max-width: 1090px
+        height: 560px
+        background-color: #fff
+        padding: 100px 0
+        &__item
+            max-width: max-content
+            margin: 20px auto
+            display: flex
+.input-block
+    max-width: 544px
+    width: 544px
+    height: 90px
+    padding: 14px
+    box-shadow: 2px 2px 30px 2px #FFF5EC
+    &:hover
+        box-shadow: 2px 2px 30px 15px #FFF5EC
+
+.table
+    &-name
+        font-size: 36px
+        font-weight: 500
+    &-line
+        width: 230px
+        height: 15px
+        background-color: $secBcg
+    &-button
+        width: 128px
+        height: 62px
+        background-color: $secBcg
+        color: #fff
+        font-size: 30px
+        font-weight: 600
+        text-transform: uppercase
+        padding: 10px 40px
+        margin-left: auto
+        &:hover
+            opacity: 0.8
+            cursor: pointer
+    &-input
+        border: none
+        margin-left: 40px
+        &::placeholder
+            color: $mainColor
+            opacity: .6
+        &:hover
+            cursor: pointer
+    &-info
+        display: flex
+        &__block
+            margin: 15px
+.input-label
+    font-size: 16px
+    text-align: center
+.block-input
+    background-color: #fff
+    color: $mainColor
+    border: none
+    width: 110px
+    text-align: center
+    opacity: 0.6
+    &::-webkit-calendar-picker-indicator
+        content: url('../images/redtriangle.png')
+        height: 7px
+        width: 10px
+        background: #fff
+        transition: .1s
+        &:active
+            transform: rotate(180deg)
+    &::-webkit-outer-spin-button
+        display: none
+.left-salad
+    position: absolute
+    bottom: 0
+    left: 0
+.right-salad
+    position: absolute
+    right: 0
+    bottom: 350px
+@media only screen and (max-width: 1550px)
+    .booking-table
+        padding-left: 200px
+@media only screen and (max-width: 1250px)
+    .left-salad
+        width: 400px
+    .right-salad
+        bottom: 680px
+    .booking-table
+        padding-left: 0
+@media only screen and (max-width: 1195px)
+    .booking
+        height: 742px
+        &-table
+            max-width: 720px
+            height: 420px
+            padding: 40px 0
+    .left-salad
+        left: -100px
+    .right-salad
+        width: 180px
+        bottom: 275px
+
+@media only screen and (max-width: 991px)
+    .booking
+        height: 700px
+        &-table
+            max-width: 720px
+            height: 420px
+            padding: 40px 0
+    .left-salad
+        left: -170px
+        width: 400px
+    .right-salad
+        bottom: 80px
+    .input-block
+        max-width: 300px
+        width: 273px
+        height: 50px
+        padding: 5px
+    .table
+        &-input
+            margin-left: 0px
+            width: 120px
+        &-button
+            width: 80px
+            height: 40px
+            font-size: 24px
+            padding: 3px 20px
+@media only screen and (max-width: 850px)
+    .left-salad
+        left: -230px
+
+@media only screen and (max-width: 767px)
+    .left-salad
+        left: -270px
+    .right-salad
+        bottom: -30px
+@media only screen and (max-width: 660px)
+    .left-salad
+        width: 250px
+        left: -130px
+        bottom: 240px

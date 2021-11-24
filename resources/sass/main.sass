@@ -1,0 +1,34 @@
+@import "reset"
+@import "fonts"
+@import "bootstrap/bootstrap.scss"
+
+@import "variables"
+@import "typography"
+
+@import "header"
+@import "footer"
+
+@import "components"
+@import "sections/sections"
+
+body
+    font-family: Poppins
+    font-size: 14px
+    color: $mainColor
+.body--disable
+    overflow-y: hidden
+a
+    color: $mainColor
+    &:hover
+        opacity: 0.7
+.flexbox
+    display: flex
+.wrap
+    flex-wrap: wrap
+.main-container
+    max-width: 1920px
+    margin: 0 auto
+    position: relative
+    background: $mainBcg
+.hide
+    display: none

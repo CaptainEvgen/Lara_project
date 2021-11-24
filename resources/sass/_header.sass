@@ -1,0 +1,136 @@
+.header
+    position: absolute
+    top: 0
+    width: 100%
+    margin: 0 auto
+    display: flex
+    padding-top: 20px
+    z-index: 2
+    & .container
+        z-index: 3
+.header-background
+    position: fixed
+    max-width: inherit
+    background: linear-gradient(to right, $mainBcg 70%, $secBcg 30%)
+.logo
+    font-size: 72px
+    padding: 21px 0
+    font-weight: bold
+    color: $secBcg
+.menu
+    display: flex
+    min-width: 490px
+    padding: 65px 0
+    justify-content: space-between
+    &__item
+        z-index: 2
+        a
+            color: $mainColor
+.user-panel
+    display: flex
+    align-content: flex-end
+    padding: 50px 0
+    &__icon
+        width: 50px
+        height: 50px
+        border-radius: 50%
+        background-color: white
+        padding: 10px
+        position: relative
+    &__icon--active
+        width: 15px
+        height: 15px
+        border-radius: 50%
+        background-color: #31A24C
+        position: absolute
+        top: 0
+        right: 0
+    &__name
+        color: white
+        padding: 15px 5px
+.burger-menu
+    visibility: hidden
+.sidebar
+    position: absolute
+    height: 100vh
+    width: 100%
+    background: linear-gradient(to right, $mainBcg 75%, #fe043aa6 25%)
+    left: -250%
+    transition: left 0.5s linear
+    z-index: +2
+    padding-top: 40px
+    &__item
+        display: block
+        padding: 25px
+        font-size: 25px
+        text-transform: uppercase
+    &--active
+        left: 0
+.user-sidebar
+    display: flex
+    padding: 50px 0
+    justify-content: center
+    &__icon
+        width: 250px
+        height: 250px
+        border-radius: 50%
+        background-color: white
+        position: relative
+        overflow: hidden
+        & img
+            width: 250px
+            height: 250px
+    &__name
+        font-size: 35px
+        color: $mainColor
+        padding: 15px 5px
+/*Menu-caret style start*/
+.caret
+    position: absolute
+    background: $mainBcg
+    color: $mainColor
+    width: max-content
+    transition: visibility 0.5s linear, opacity 0.5s linear
+    z-index: 5
+    opacity: 0
+    visibility: hidden
+.caret__item
+    text-decoration: none
+    list-style-type: none
+.menu-caret
+    z-index: 4
+.menu-caret__icon
+    width: 10px
+    transition: .5s
+.menu-caret:hover
+    .menu-caret__icon
+        transform: rotate(180deg)
+    .caret
+        opacity: 1
+        visibility: visible
+/*Menu-caret style end*/
+
+@media only screen and (max-width: 1750px)
+    .header-background
+        background: linear-gradient(to right, $mainBcg 75%, $secBcg 25%)
+    .logo
+        font-size: 60px
+    .menu
+        visibility: hidden
+        min-width: 0px
+    .user-panel
+        display: none
+
+    .burger-menu
+        visibility: visible
+        margin-top: 60px
+@media only screen and (max-width: 991px)
+    .logo
+        font-size: 48px
+    .burger-menu
+        visibility: visible
+        margin-top: 60px
+
+@media only screen and (max-width: 575px)
+    .burger-menu
+        margin-right: 10px

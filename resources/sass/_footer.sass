@@ -1,0 +1,104 @@
+.footer
+    position: relative
+    max-height: 946px
+    background: url('../images/servicesBcg.png')
+    padding: 3%
+    overflow: hidden
+    &-main-block
+        max-width: 600px
+        margin: 0 auto
+        padding: 12% 0
+        &__name
+            font-size: 36px
+            text-align: center
+            text-transform: capitalize
+        &__description
+            color: $secColor
+            text-align: center
+            text-transform: capitalize
+            margin-top: 30px
+            margin-bottom: 60px
+    &-secondary-block
+        display: flex
+        justify-content: flex-end
+        float: right
+.footer-input-block
+    height: 90px
+    max-width: 544px
+    background-color: #fff
+    border-radius: 100px
+    margin: 0 auto
+    display: flex
+    padding: 18px
+    justify-content: space-between
+    z-index: 2
+    &:hover
+        box-shadow: 2px 2px 30px 2px #864c18
+    &__input
+        border: none
+        margin-left: 40px
+        font-size: 16px
+        z-index: 2
+    &__button
+        background-color: $secBcg
+        border-radius: 50%
+        width: 55px
+        height: 55px
+        padding: 19px 15px
+        &:hover
+            opacity: 0.8
+            cursor: pointer
+.anchor-block
+    display: flex
+    justify-content: space-evenly
+    margin-top: 60px
+    color: $secColor
+    font-size: 16px
+    &__item
+        z-index: 2
+        &:hover
+            opacity: 0.8
+            cursor: pointer
+.networks-block
+    display: flex
+    margin-right: 50px
+    align-items: end
+    z-index: 2
+    &__item
+        margin-right: 30px
+        &:hover
+            opacity: 0.8
+            cursor: pointer
+.copyright
+    color: #000
+.footerBcg
+    position: absolute
+    left: 0
+    bottom: 0
+@media only screen and (max-width: 1300px)
+    .footerBcg
+        left: -135px
+@media only screen and (max-width: 1195px)
+    .footerBcg
+        width: 550px
+        left: -225px
+@media only screen and (max-width: 767px)
+    .footerBcg
+        left: -280px
+        bottom: -35px
+    .footer
+        &-main-block
+            &__name
+                font-size: 24px
+            &__description
+                margin-bottom: 30px
+    .footer-input-block
+        height: 60px
+        max-width: 379px
+        padding: 10px
+        &__input
+            margin-left: 40px
+        &__button
+            width: 40px
+            height: 40px
+            padding: 10px 8px

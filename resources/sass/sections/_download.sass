@@ -1,0 +1,48 @@
+.download
+    min-height: 1150px
+    background-color: $thirdBcg
+.download-block
+    margin: 50% 0
+    &__text-block
+        display: flex
+        min-height: 140px
+    &__description
+        margin: 25px
+    &__apps-block
+        display: flex
+        justify-content: space-around
+.SP-image
+    position: relative
+    &__bcg
+        position: absolute
+        transform: rotate(-15deg)
+        left: -100px
+        top: 300px
+    &__phone
+        position: absolute
+
+@media only screen and (max-width: 1350px)
+    .download
+        min-height: 850px
+    .SP-image
+        &__bcg
+            top: 250px
+        &__phone
+            width: 500px
+@media only screen and (max-width: 1199px)
+    .SP-image
+        &__bcg
+            left: -50px
+@media only screen and (max-width: 991px)
+    .download
+        min-height: 1150px
+    .download-block
+        margin: 15px
+    .SP-image
+        &__phone
+            left: 70px
+@media only screen and (max-width: 767px)
+    .SP-image
+        &__phone
+            left: -30px
+

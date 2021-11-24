@@ -1,0 +1,269 @@
+.food-section
+    position: relative
+    padding-top: 180px
+    height: 1210px
+    background: linear-gradient(to right, $mainBcg 70%, $secBcg 30%)
+.description-block
+    padding-top: 80px
+    &__main-para
+        font-weight: 900
+        font-size: 200px
+        line-height: 189px
+        opacity: .05
+    &__secondary-para
+        font-weight: bold
+        font-size: 72px
+        line-height: 90px
+.search-block
+    height: 90px
+    width: 670px
+    margin-top: 40px
+    padding: 10px
+    background-color: white
+    display: flex
+    justify-content: space-between
+    &__input
+        color: $mainColor
+        margin-left: 50px
+        border: none
+        &::placeholder
+            color: $mainColor
+            opacity: .6
+        &:hover
+            cursor: pointer
+    &__button
+        width: 200px
+        height: 70px
+        font-size: 30px
+        font-weight: 600
+        color: white
+        text-transform: uppercase
+        border-radius: 60px 0px 0px 0px
+        background-color: $secBcg
+        &:hover
+            opacity: 0.75
+.location-block
+    position: absolute
+    left: 0
+    top: 930px
+    display: flex
+    height: 65px
+    width: 280px
+    border-radius: 0px 100px 100px 0px
+    background: $secBcg
+    justify-content: center
+    &__image
+        display: block
+        width: min-content
+        height: min-content
+        margin: auto 0
+    &__name
+        height: min-content
+        margin: auto 0 auto 20px
+        color: white
+        font-size: 30px
+.bg-block
+    background: url("../images/dropsBG.svg") no-repeat
+    height: 380px
+    width: 380px
+/*carousel*/
+.carousel-wrapper
+    height: 950px
+.carousel
+    position: relative
+    bottom: 850px
+.slides
+    min-width: 750px
+.slide
+    position: relative
+    max-height: 900px
+    min-width: min-content
+.slide__BGimg
+    position: relative
+    left: 130px
+.slide__img
+
+    position: relative
+    z-index: 1
+    bottom: 540px
+    right: 50px
+    width: 800px
+.buttons
+    display: flex
+    justify-content: flex-end
+    margin-right: 15px
+.button-prev
+    margin-right: 40px
+    &:hover
+        opacity: 0.75
+.button-next:hover
+    opacity: 0.75
+@media only screen and (max-width: 1919px)
+    .slide__BGimg
+        left: 130px
+        width: 450px
+    .slide__img
+        bottom: 540px
+        right: 50px
+        width: 750px
+@media only screen and (max-width: 1750px)
+    .food-section
+        padding-top: 180px
+        height: 925px
+        background: linear-gradient(to right, $mainBcg 75%, $secBcg 25%)
+    .description-block
+        padding-top: 55px
+        &__main-para
+            font-size: 150px
+            line-height: 100px
+        &__secondary-para
+            font-size: 60px
+            line-height: 60px
+            overflow: visible
+            width: 680px
+    .search-block
+        width: 460px
+        margin-top: 30px
+        &__input
+            margin-left: 30px
+        &__button
+            width: 145px
+    .location-block
+        top: 700px
+    .bg-block
+        height: 230px
+        width: 300px
+    /*carousel*/
+    .carousel
+        bottom: 830px
+        height: 900px
+    .slides
+        min-height: 600px
+        min-width: 640px
+    .slide__BGimg
+        top: 210px
+        width: 450px
+    .slide__img
+        z-index: 1
+        width: 570px
+        top: -261px
+        right: -75px
+    .buttons
+        display: flex
+        justify-content: flex-end
+        margin-right: 15px
+    .button-prev
+        margin-right: 40px
+        &:hover
+            opacity: 0.75
+    .button-next:hover
+        opacity: 0.75
+@media only screen and (max-width: 1399px)
+    .slides
+        min-width: 570px
+    .slide__BGimg
+        left: 80px
+    .slide__img
+        right: 0
+@media only screen and (max-width: 1195px)
+    .description-block__secondary-para
+        line-height: 70px
+        width: 100%
+    /*carousel*/
+    .carousel
+        bottom: 700px
+        height: 800px
+
+    .slides
+        min-width: 530px
+        min-height: 850px
+    .slide__BGimg
+        top: 180px
+        left: 75px
+        width: 380px
+    .slide__img
+        width: 530px
+    .buttons
+        margin-right: 15px
+    .button-prev
+        margin-right: 40px
+@media only screen and (max-width: 1100px)
+    .slides
+        min-width: 480px
+    .slide__img
+        width: 500px
+        right: 40px
+@media only screen and (max-width: 991px)
+    .food-section
+        padding-top: 100px
+        min-height: 1200px
+    .description-block
+        padding-top: 30px
+        &__main-para
+            font-size: 100px
+            line-height: 150px
+        &__secondary-para
+            font-size: 36px
+            line-height: 48px
+            width: 75%
+    .search-block
+        width: 460px
+        margin-top: 30px
+        &__input
+            margin-left: 30px
+        &__button
+            width: 145px
+    .location-block
+        top: 550px
+    .bg-block
+        background: url("../images/dropsBG.svg") no-repeat
+        height: 225px
+        width: 430px
+    /*carousel*/
+    .carousel-wrapper
+        margin-top: 150px
+    .carousel
+        bottom: 530px
+        height: 500px
+    .slides
+        min-height: 560px
+        min-width: 500px
+    .slide__BGimg
+        top: 0
+        left: 350px
+        width: 330px
+    .slide__img
+        top: -370px
+        left: 100px
+    .buttons
+        margin-right: -50px
+        & img
+            width: 60px
+    .button-prev
+        margin-right: 20px
+@media only screen and (max-width: 800px)
+    .buttons
+        margin-right: -20px
+@media only screen and (max-width: 767px)
+    .slides
+        max-width: 490px
+    .slide__BGimg
+        position: relative
+        left: 125px
+        width: 390px
+    .slide__img
+        top: -450px
+        left: -40px
+        width: 500px
+    .buttons
+        margin-right: -75px
+@media only screen and (max-width: 665px)
+    .buttons
+        margin-right: -30px
+        & img
+            width: 50px
+@media only screen and (max-width: 576px)
+    .bg-block
+        height: 225px
+    .buttons
+        margin-right: -0px
