@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,8 +40,39 @@ class ProductController extends Controller
                 $product->photo =  $photo;
             };
             $product->save();
-            return view('product.newProduct')->with('message', 'Данные отправлены');
+            return redirect('newProduct')->with('message', 'Данные отправлены');
         }
         return view('product.newProduct');
+    }
+    public function deleteProduct($id){
+        $product = Product::findOrFail($id);
+
+        $name = $product->name;
+        $product->delete();
+        return redirect()->route('getAllByRestaurant',['id' => Auth::user()->restaurant_id])->with('message', 'Your product '.$name.' has been successfully deleted.');
+    }
+    public function updateProduct(Request $request, $id = null ){
+        $product = Product::findOrFail($id);
+        //dd($product);
+        if ($request->has('submit')) {
+            $data = $request->all();
+            $product->name = $data['name'];
+            $product->description = $data['description'];
+            $product->price = $data['price'];
+            if($request->file('photo')){
+                $photo = $request->file('photo');
+                $photo = Controller::upload_image($photo, 'products');
+                $product->photo = $photo;
+            };
+            $product->save();
+
+            return redirect()->route('getAllByRestaurant',['id' => Auth::user()->restaurant_id])->with('message', 'Your product'.$data['name'].' has been successfully updated.');
+        }
+        return view('product.updateProduct', [
+            'name' => $product->name,
+            'description' => $product->description,
+            'price' => $product->price,
+            'photo' => $product->photo,
+        ]);
     }
 }

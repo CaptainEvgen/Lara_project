@@ -18,10 +18,10 @@
                 <div class="sidebar__item">
                   <div class="user-sidebar">
                     <div class="user-sidebar__icon">
-                      <img src="images/User icon.svg" alt="">
+                      <img src="/images/User icon.svg" alt="">
                     </div>
                     <div class="user-sidebar__name menu-caret">{{Auth::user()->first_name}}
-                      <img src="images/arrowDown.svg" class="menu-caret__icon">
+                      <img src="/images/arrowDown.svg" class="menu-caret__icon">
                       <ul class="caret">
                         <li class="caret__item">статус: {{Auth::user()->role->name}}</li>
                         @if (Auth::user()->role->name === 'manager')
@@ -37,9 +37,9 @@
                     </div>
                   </div>
                 </div>
-                <div class="sidebar__item"><a href="#">Menu One</a></div>
-                <div class="sidebar__item"><a href="#">Menu Two</a></div>
-                <div class="sidebar__item"><a href="#">Menu Three</a></div>
+                <div class="sidebar__item"><a href="#">Рестораны</a></div>
+                <div class="sidebar__item"><a href="#">Все блюда</a></div>
+                <div class="sidebar__item"><a href="#">История заказов?</a></div>
                 <div class="sidebar__item"><a href="#">Menu Four</a></div>
               </div>
             @endauth
@@ -55,9 +55,9 @@
               </div>
               <div class="col-6 col-sm-7 col-lg-4 offset-lg-1">
                 <div class=" menu">
-                  <div class="menu__item"><a href="#">Menu One</a></div>
-                  <div class="menu__item"><a href="#">Menu Two</a></div>
-                  <div class="menu__item"><a href="#">Menu Three</a></div>
+                    <div class="menu__item"><a href="#">Рестораны</a></div>
+                    <div class="menu__item"><a href="#">Все блюда</a></div>
+                    <div class="menu__item"><a href="#">История заказов?</a></div>
                   <div class="menu__item"><a href="#">Menu Four</a></div>
                 </div>
               </div>
@@ -94,7 +94,6 @@
             </div>
           </div>
         </header>
-
         <main class="main">
           <section class="food-section">
             <div class="container">
@@ -146,7 +145,7 @@
 
             <div class="location-block">
               <img src="images/location.svg" class="location-block__image">
-              <div class="location-block__name">Rajshahi</div>
+              <div class="location-block__name">{{Location::get()->cityName}}</div>
             </div>
           </section>
           <section class="top-restaurants">

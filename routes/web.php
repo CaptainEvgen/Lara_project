@@ -27,12 +27,20 @@ Route::match(['get', 'post'],'/register', [UserController::class,'register'])->n
 Route::get('product/getOne/{id}', [ProductController::class,'getOneProduct'])->where(['id' => '[\d]+'])->name('getOneProduct');
 
 
+
+
 Route::middleware('auth')->group(function(){
     Route::middleware('role:manager')->group(function(){
         Route::get('/manager', [AdminController::class,'showHomePage'])->name('manager');
         Route::match(['get', 'post'],'/newProduct', [ProductController::class,'newProduct'])->name('newProduct');
+        Route::get('/manager/employees',[AdminController::class, 'getEmployees'])->name('employees');
+        Route::get('manager/products', [ProductController::class,'getAllProducts'])->name('getAllProducts');// по всем ресторанам
+        Route::get('manager/product/getAll/{id}', [AdminController::class,'getAllByRestaurant'])->where(['id' => '[\d]+'])->name('getAllByRestaurant');// по выбранному ресторанам
+        Route::get('manager/delete/{id}', [ProductController::class,'deleteProduct'])->where(['id' => '[\d]+'])->name('deleteProduct');
+        Route::get('manager/update/{id}', [ProductController::class,'updateProduct'])->where(['id' => '[\d]+'])->name('updateProduct');
+
     });
 
     Route::get('/logout', [UserController::class,'logout'])->name('logout');
-
 });
+

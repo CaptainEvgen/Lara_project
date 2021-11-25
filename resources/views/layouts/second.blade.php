@@ -18,10 +18,10 @@
                 <div class="sidebar__item">
                   <div class="user-sidebar">
                     <div class="user-sidebar__icon">
-                      <img src="{{asset('images/User icon.svg')}}" alt="">
+                      <img src="/images/User icon.svg" >
                     </div>
                     <div class="user-sidebar__name menu-caret">{{Auth::user()->first_name}}
-                      <img src="{{asset('/images/arrowDown.svg')}}" class="menu-caret__icon">
+                      <img src="/images/arrowDown.svg" class="menu-caret__icon">
                       <ul class="caret">
                         <li class="caret__item">статус: {{Auth::user()->role->name}}</li>
                         @if (Auth::user()->role->name === 'manager')
