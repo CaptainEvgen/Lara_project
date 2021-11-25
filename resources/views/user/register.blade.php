@@ -27,7 +27,7 @@
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
                                                     <div class="form-floating mb-3 mb-md-0">
-                                                        <input class="form-control" id="inputFirstName" type="text" name="first_name"  placeholder="Enter your first name" />
+                                                        <input class="form-control" id="inputFirstName" type="text" name="first_name"  placeholder="Enter your first name" value="{{old('first_name')}}"/>
                                                         <label for="inputFirstName">Имя</label>
                                                     </div>
                                                     @error('first_name')
@@ -36,7 +36,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-floating">
-                                                        <input class="form-control" id="inputLastName" type="text" name="last_name" placeholder="Enter your last name" />
+                                                        <input class="form-control" id="inputLastName" type="text" name="last_name" placeholder="Enter your last name" value="{{old('last_name')}}"/>
                                                         <label for="inputLastName">Фамилия</label>
                                                     </div>
                                                     @error('last_name')
@@ -45,7 +45,7 @@
                                                 </div>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="tel"  name="telephone_number" placeholder="0501234567" />
+                                                <input class="form-control" id="inputEmail" type="tel"  name="telephone_number" placeholder="0501234567" value="{{old('telephone_number')}}"/>
                                                 <label for="inputEmail">Ваш номер телефона</label>
                                             </div>
                                             @error('telephone_number')
@@ -75,22 +75,15 @@
                                                 <div class="d-grid"><div class="btn btn-primary btn-block manager">Я менеджер ресторана</div></div>
                                             </div>
                                             <div class="form-floating mb-3 manager-input hide">
-                                                <input class="form-control" id="inputName" type="text"  name="name"  />
+                                                <input class="form-control" id="inputName" type="text"  name="name"  value="{{old('name')}}"/>
                                                 <label for="inputName">Название ресторана</label>
                                             </div>
                                             @error('name')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
                                             <div class="form-floating mb-3 manager-input hide">
-                                                <input class="form-control" id="inputloc" type="text"  name="location"/>
+                                                <input class="form-control" id="inputloc" type="text"  name="location_name" value="{{old('location_name')}}"/>
                                                 <label for="inputloc">Местонахождение</label>
-                                            </div>
-                                            @error('location')
-                                                <div class="alert alert-danger">{{ $message }}</div>
-                                            @enderror
-                                            <div class="form-floating mb-3 manager-input hide">
-                                                <input class="form-control" id="inputcity" type="text"  name="location_name" />
-                                                <label for="inputcity">Название населенного пункта</label>
                                             </div>
                                             @error('location_name')
                                                 <div class="alert alert-danger">{{ $message }}</div>

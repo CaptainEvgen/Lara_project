@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\Restaurant;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Product extends Model
+class Role extends Model
 {
     use HasFactory;
 
-    public function restaurant(){
-        return $this->belongsTo(Restaurant::class);
+    public function user(){
+        return $this->hasMany(User::class);
     }
+
 }

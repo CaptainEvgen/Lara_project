@@ -8,35 +8,45 @@
       <title>Expice</title>
       <script src="js/libs.min.js"></script>
       <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
-
       <link rel="stylesheet" href="{{asset('/css/main.css')}}"/>
     </head>
     <body>
       <div class="main-container">
         <header class="header">
-          <div class="sidebar">
-            <div class="sidebar__item">
-              <div class="user-sidebar">
-                <div class="user-sidebar__icon">
-                  <img src="images/User icon.svg" alt="">
+            @auth
+            <div class="sidebar">
+                <div class="sidebar__item">
+                  <div class="user-sidebar">
+                    <div class="user-sidebar__icon">
+                      <img src="images/User icon.svg" alt="">
+                    </div>
+                    <div class="user-sidebar__name menu-caret">{{Auth::user()->first_name}}
+                      <img src="images/arrowDown.svg" class="menu-caret__icon">
+                      <ul class="caret">
+                        <li class="caret__item">статус: {{Auth::user()->role->name}}</li>
+                        @if (Auth::user()->role->name === 'manager')
+                            <li class="caret__item"><a href="{{route('manager')}}"> кабинет менеджера</a></li>
+                        @endif
+                        @if (Auth::user()->role->name === 'admin')
+                            <li class="caret__item"><a href="{{route('admin')}}">админка</a></li>
+                        @endif
+                        @if (Auth::check())
+                            <li class="caret__item"><a href="{{route('logout')}}">выйти</a></li>
+                        @endif
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-                <div class="user-sidebar__name menu-caret">{{Auth::user()->first_name}}
-                  <img src="images/arrowDown.svg" class="menu-caret__icon">
-                  <ul class="caret">
-                    <li class="caret__item">User 1</li>
-                    <li class="caret__item">User 2</li>
-                    <li class="caret__item">User 3</li>
-                    <li class="caret__item">User 4</li>
-                  </ul>
-                </div>
+                <div class="sidebar__item"><a href="#">Menu One</a></div>
+                <div class="sidebar__item"><a href="#">Menu Two</a></div>
+                <div class="sidebar__item"><a href="#">Menu Three</a></div>
+                <div class="sidebar__item"><a href="#">Menu Four</a></div>
               </div>
-            </div>
-            <div class="sidebar__item"><a href="#">Menu One</a></div>
-            <div class="sidebar__item"><a href="#">Menu Two</a></div>
-            <div class="sidebar__item"><a href="#">Menu Three</a></div>
-            <div class="sidebar__item"><a href="#">Menu Four</a></div>
-          </div>
+            @endauth
           <div class="container">
+            @if(Session::has('message'))
+                <p class="alert alert-info">{{ Session::get('message') }}</p>
+            @endif
             <div class="row">
               <div class="col-4 col-lg-2">
                 <div class="logo">
@@ -53,35 +63,36 @@
               </div>
               <div class="col-1 offset-lg-4">
                   @if (Auth::check())
-                  <div class="user-panel">
-                    <div class="user-panel__icon">
-                      <img src="images/User icon.svg" alt="">
-                      <div class="user-panel__icon--active"></div>
+                    <div class="user-panel">
+                        <div class="user-panel__icon">
+                            <img src="images/User icon.svg" alt="">
+                            <div class="user-panel__icon--active"></div>
+                        </div>
+                        <div class="user-panel__name menu-caret">{{Auth::user()->first_name}}
+                            <img src="images/arrowDown.svg" class="menu-caret__icon">
+                            <ul class="caret">
+                                <li class="caret__item">статус: {{Auth::user()->role->name}}</li>
+                                @if (Auth::user()->role->name === 'manager')
+                                    <li class="caret__item"><a href="{{route('manager')}}"> кабинет менеджера</a></li>
+                                @endif
+                                @if (Auth::user()->role->name === 'admin')
+                                    <li class="caret__item"><a href="{{route('admin')}}">админка</a></li>
+                                @endif
+                                @if (Auth::check())
+                                    <li class="caret__item"><a href="{{route('logout')}}">выйти</a></li>
+                                @endif
+                            </ul>
+                        </div>
                     </div>
-                    <div class="user-panel__name menu-caret">{{Auth::user()->first_name}}
-                      <img src="images/arrowDown.svg" class="menu-caret__icon">
-                      <ul class="caret">
-                        <li class="caret__item">User 1</li>
-                        <li class="caret__item">User 2</li>
-                        <li class="caret__item">User 3</li>
-                        <li class="caret__item">User 4</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="burger-menu"><img src="images/burger-menu.png" alt=""></div>
+                    <div class="burger-menu"><img src="images/burger-menu.png" alt=""></div>
                   @else
-                  <div class="user-panel__icon p-0">
-                    <a href="{{route('login')}}"><img src="https://img.icons8.com/ios/50/000000/login-rounded-right--v1.png"/></a>
-                  </div>
+                    <div class="user-panel__icon p-0">
+                        <a href="{{route('login')}}"><img src="https://img.icons8.com/ios/50/000000/login-rounded-right--v1.png"/></a>
+                    </div>
                   @endif
-
-
               </div>
             </div>
           </div>
-        @if(Session::has('message'))
-            <p class="alert alert-info">{{ Session::get('message') }}</p>
-        @endif
         </header>
 
         <main class="main">

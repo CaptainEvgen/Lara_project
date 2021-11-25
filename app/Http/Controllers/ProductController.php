@@ -3,11 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
+    public function getOneProduct($id){
+        $product = Product::findOrFail($id);
+        $restaurant =  $product->restaurant;
+        return view('product.getOneProduct', [
+            'name' => $product->name,
+            'description' =>$product->description,
+            'price' =>$product->price,
+            'photo' =>$product->photo,
+            'restaurant' =>$restaurant->name,
+        ]);
+
+    }
     public function newProduct(Request $request){
 
         if ($request->isMethod('post')){

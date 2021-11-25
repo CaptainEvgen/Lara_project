@@ -13934,6 +13934,7 @@ h5,
   padding: 30px;
   background-color: #fff;
   display: flex;
+  justify-content: space-between;
 }
 .good-block__image-block {
   width: 100%;

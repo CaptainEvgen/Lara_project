@@ -21,10 +21,18 @@ use App\Http\Controllers\ProductController;
 // Route::match(['get', 'post'],'/post/change/{id}', [PostController::class,'change'])->where(['id' => '[\d]+']);
 // Route::get('/post/delete/{id}', [PostController::class,'delete'])->where(['id' => '[\d]+']);
 
-Route::get('/', [HomeController::class,'showHomePage']);
-Route::get('/admin', [AdminController::class,'showHomePage'])->middleware('auth')->name('admin');
+Route::get('/', [HomeController::class,'showHomePage'])->name('homepage');
 Route::match(['get', 'post'],'/login', [UserController::class,'login'])->name('login');
-Route::get('/logout', [UserController::class,'logout'])->name('logout');
 Route::match(['get', 'post'],'/register', [UserController::class,'register'])->name('register');
-Route::match(['get', 'post'],'/newProduct', [ProductController::class,'newProduct'])->name('newProduct')->middleware('auth');
+Route::get('product/getOne/{id}', [ProductController::class,'getOneProduct'])->where(['id' => '[\d]+'])->name('getOneProduct');
 
+
+Route::middleware('auth')->group(function(){
+    Route::middleware('role:manager')->group(function(){
+        Route::get('/manager', [AdminController::class,'showHomePage'])->name('manager');
+        Route::match(['get', 'post'],'/newProduct', [ProductController::class,'newProduct'])->name('newProduct');
+    });
+
+    Route::get('/logout', [UserController::class,'logout'])->name('logout');
+
+});

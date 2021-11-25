@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function showHomePage(){
-        return view('layouts.app');
+        $restaurants = Restaurant::all();
+        $products = Product::all();
+        return view('layouts.app',[
+            'restaurants' => $restaurants,
+            'products' => $products,
+        ]);
     }
 }

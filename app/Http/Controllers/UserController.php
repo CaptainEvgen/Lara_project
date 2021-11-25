@@ -12,18 +12,20 @@ class UserController extends Controller
 {
     public function login(Request $request){
         if(Auth::check()){
-            return redirect('/')->with('message', 'Вы уже аутентифицированы');
+            return redirect(route('homepage'))->with('message', 'Вы уже аутентифицированы');
         }
         $data = $request->only('telephone_number', 'password');
         if(Auth::attempt($data)){
-            return redirect('/')->with('message', Auth::user()->first_name.', вы успешно аутентифицированы!');
+            return redirect(route('homepage'))->with('message', Auth::user()->first_name.', вы успешно аутентифицированы!');
         }
         return view('user.login');
     }
+
     public function logout(){
         Auth::logout();
-        return redirect('/')->with('message', 'Вы успешно вышли из профиля');
+        return redirect(route('homepage'))->with('message', 'Вы успешно вышли из профиля');
     }
+
     public function register(Request $request){
         if ($request->isMethod('post')){
             $data=$request->validate([
@@ -41,16 +43,14 @@ class UserController extends Controller
             $user->last_name = $data['last_name'];
             $user->telephone_number = $data['telephone_number'];
 
-            if($request->name !== null && $request->location !== null && $request->location_name !== null){
+            if($request->name !== null && $request->location_name !== null){
                 $validater=$request->validate([
                     'name' => 'required|min:8|unique:restaurants',
-                    'location' => 'string|min:8|nullable',
                     'location_name'=> 'string|nullable',
                 ]);
                 $user->role_id = 2;
                 $restaurant = new Restaurant;
                 $restaurant->name = $validater['name'];
-                $restaurant->location = $validater['location'];
                 $restaurant->location_name = $validater['location_name'];
                 $restaurant->save();
                 $id = Restaurant::where('name', $validater['name'])->first()->id;
@@ -59,8 +59,12 @@ class UserController extends Controller
 
             $user->save();
 
-            return redirect('/login')->with('message', 'Вы успешно зарегестрированы!');
+            return redirect(route('login'))->with('message', 'Вы успешно зарегестрированы!');
         }
         return view('user.register');
+    }
+    public function update(Request $request){
+
+        return view('user.update');
     }
 }
