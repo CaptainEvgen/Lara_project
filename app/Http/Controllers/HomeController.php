@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function showHomePage(){
         $restaurants = Restaurant::all();
-        $products = Product::all();
+        $products = Product::inRandomOrder()->paginate(6);
         return view('layouts.app',[
             'restaurants' => $restaurants,
             'products' => $products,

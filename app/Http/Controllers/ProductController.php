@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,9 +17,16 @@ class ProductController extends Controller
             'description' =>$product->description,
             'price' =>$product->price,
             'photo' =>$product->photo,
-            'restaurant' =>$restaurant->name,
+            'restaurant' =>$restaurant,
         ]);
-
+    }
+    public function getByRestaurant($id){
+        $products = Product::where('restaurant_id', $id)->get();
+        $restaurant = Restaurant::findOrFail($id);
+        return view('product.getByRestaurant', [
+            'products' => $products,
+            'restaurant' => $restaurant,
+        ]);
     }
     public function newProduct(Request $request){
 
@@ -46,14 +54,13 @@ class ProductController extends Controller
     }
     public function deleteProduct($id){
         $product = Product::findOrFail($id);
-
         $name = $product->name;
+        unlink(public_path($product->photo));
         $product->delete();
         return redirect()->route('getAllByRestaurant',['id' => Auth::user()->restaurant_id])->with('message', 'Your product '.$name.' has been successfully deleted.');
     }
     public function updateProduct(Request $request, $id = null ){
         $product = Product::findOrFail($id);
-        //dd($product);
         if ($request->has('submit')) {
             $data = $request->all();
             $product->name = $data['name'];
@@ -62,13 +69,14 @@ class ProductController extends Controller
             if($request->file('photo')){
                 $photo = $request->file('photo');
                 $photo = Controller::upload_image($photo, 'products');
+                unlink(public_path($product->photo));
                 $product->photo = $photo;
             };
             $product->save();
-
-            return redirect()->route('getAllByRestaurant',['id' => Auth::user()->restaurant_id])->with('message', 'Your product'.$data['name'].' has been successfully updated.');
+            return redirect()->route('getAllByRestaurant',['id' => Auth::user()->restaurant_id])->with('message', 'Your product '.$data['name'].' has been successfully updated.');
         }
         return view('product.updateProduct', [
+            'id' => $id,
             'name' => $product->name,
             'description' => $product->description,
             'price' => $product->price,

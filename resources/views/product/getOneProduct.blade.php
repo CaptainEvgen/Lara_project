@@ -2,7 +2,7 @@
 
 @section('main')
 <div class="container">
-    <h1>{{$restaurant}}</h1>
+    <h1><a href="{{route('byRestaurant',['id' => $restaurant->id])}}">Ресторан: {{$restaurant->name}}</a></h1>
     <div class="good-block mx-auto">
         <div class="good-block__image-block">
         <img src="{{asset($photo)}}" alt="">

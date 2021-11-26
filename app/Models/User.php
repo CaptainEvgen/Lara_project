@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Role;
+use App\Models\Order;
 use App\Models\Restaurant;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
@@ -51,5 +52,8 @@ class User extends Authenticatable
 
     public function restaurant(){
         return $this->belongsTo(Restaurant::class);
+    }
+    public function order(){
+        return $this->hasMany(Order::class);
     }
 }

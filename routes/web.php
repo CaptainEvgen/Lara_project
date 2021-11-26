@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 
 /*
@@ -25,22 +26,24 @@ Route::get('/', [HomeController::class,'showHomePage'])->name('homepage');
 Route::match(['get', 'post'],'/login', [UserController::class,'login'])->name('login');
 Route::match(['get', 'post'],'/register', [UserController::class,'register'])->name('register');
 Route::get('product/getOne/{id}', [ProductController::class,'getOneProduct'])->where(['id' => '[\d]+'])->name('getOneProduct');
-
+Route::get('restaurant/{id}', [ProductController::class,'getByRestaurant'])->where(['id' => '[\d]+'])->name('byRestaurant');
+Route::match(['get', 'post'],'/makeOrder', [OrderController::class,'makeOrder'])->name('makeOrder');
 
 
 
 Route::middleware('auth')->group(function(){
+
+    Route::get('/logout', [UserController::class,'logout'])->name('logout');
     Route::middleware('role:manager')->group(function(){
         Route::get('/manager', [AdminController::class,'showHomePage'])->name('manager');
         Route::match(['get', 'post'],'/newProduct', [ProductController::class,'newProduct'])->name('newProduct');
-        Route::get('/manager/employees',[AdminController::class, 'getEmployees'])->name('employees');
+        // Route::get('/manager/employees',[AdminController::class, 'getEmployees'])->name('employees');
         Route::get('manager/products', [ProductController::class,'getAllProducts'])->name('getAllProducts');// по всем ресторанам
         Route::get('manager/product/getAll/{id}', [AdminController::class,'getAllByRestaurant'])->where(['id' => '[\d]+'])->name('getAllByRestaurant');// по выбранному ресторанам
         Route::get('manager/delete/{id}', [ProductController::class,'deleteProduct'])->where(['id' => '[\d]+'])->name('deleteProduct');
-        Route::get('manager/update/{id}', [ProductController::class,'updateProduct'])->where(['id' => '[\d]+'])->name('updateProduct');
+        Route::match(['get', 'post'],'manager/update/{id?}', [ProductController::class,'updateProduct'])->where(['id' => '[\d]+'])->name('updateProduct');
 
     });
 
-    Route::get('/logout', [UserController::class,'logout'])->name('logout');
 });
 

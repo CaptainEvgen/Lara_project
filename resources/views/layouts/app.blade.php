@@ -1,4 +1,3 @@
-
 <html lang="en">
     <head>
       <meta charset="UTF-8"/>
@@ -6,7 +5,6 @@
       <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
       <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
       <title>Expice</title>
-      <script src="js/libs.min.js"></script>
       <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
       <link rel="stylesheet" href="{{asset('/css/main.css')}}"/>
     </head>
@@ -18,7 +16,7 @@
                 <div class="sidebar__item">
                   <div class="user-sidebar">
                     <div class="user-sidebar__icon">
-                      <img src="/images/User icon.svg" alt="">
+                      <img src="{{asset('images/User-icon.svg')}}" alt="">
                     </div>
                     <div class="user-sidebar__name menu-caret">{{Auth::user()->first_name}}
                       <img src="/images/arrowDown.svg" class="menu-caret__icon">
@@ -132,10 +130,10 @@
                         </div>
                         <div class="buttons">
                           <div class="button-prev">
-                            <img src="images/Left carousel.png" alt="" class="prev">
+                            <img src="{{asset('images/Left-carousel.png')}}" alt="" class="prev">
                           </div>
                           <div class="button-next">
-                            <img src="images/Right carousel.png" alt="" class="next">
+                            <img src="{{asset('images/Right-carousel.png')}}" alt="" class="next">
                           </div>
                         </div>
                       </div>
@@ -210,26 +208,38 @@
                   advance booking
                 </div>
               </div>
-              <div class="booking-table__item input-block">
-                <input type="text" class="table-input" placeholder="search restrurent">
-                <div class="table-button">go</div>
-              </div>
-              <div class="booking-table__item">
-                <div class="table-info">
-                  <div class="table-info__block">
-                    <div class="input-label">Date</div>
-                  <input type="date" class="block-input">
-                  </div>
-                  <div class="table-info__block">
-                    <div class="input-label"> Time</div>
-                  <input type="time" class="block-input">
-                  </div>
-                  <div class="table-info__block">
-                    <div class="input-label">Guests</div>
-                  <input type="number" placeholder="3 People" maxlength="2" class="block-input">
-                  </div>
-                </div>
-              </div>
+                 @if($errors->any())
+                    <h4 class="validation-fail"> {{$errors->first()}}</h4>
+                 @endif
+                <form action="{{route('makeOrder')}}" method="post">
+                    @csrf
+                    <div class="booking-table__item input-block">
+                            <select class="form-control table-input" name="restaurant" value="{{old('restaurant')}}">
+                                <option >search restraurant</option>
+                                @foreach ($restaurants as $restaurant)
+                                    <option value="{{$restaurant->id}}">{{$restaurant->name}}</option>
+                                @endforeach
+                            </select>
+                        {{-- <input type="text" class="table-input" placeholder="search restrurent"> --}}
+                        <input name="submit" type="submit" class="table-button" value="go">
+                    </div>
+                    <div class="booking-table__item">
+                        <div class="table-info">
+                        <div class="table-info__block">
+                            <div class="input-label">Date</div>
+                            <input type="date" class="block-input" name="date" value="{{old('date')}}">
+                        </div>
+                        <div class="table-info__block">
+                            <div class="input-label"> Time</div>
+                            <input type="time" class="block-input" name="time" value="{{old('time')}}">
+                        </div>
+                        <div class="table-info__block">
+                            <div class="input-label">Guests</div>
+                            <input type="number" placeholder="2 People" maxlength="2" class="block-input" name="guests" value="{{old('guests')}}">
+                        </div>
+                        </div>
+                    </div>
+                </form>
             </div>
             <img src="images/leftSalad.png" alt="" class="left-salad">
             <img src="images/rightSalad.png" alt="" class="right-salad">
@@ -306,78 +316,22 @@
                 <div class="description__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est, adipiscing cursus auctor eget sed phasellus senectus. Ut tellus donec vestibulum tristique leo bibendum in a, tincidunt. Volutpat metus id amet.</div>
               </div>
               <div class="showcase__scroll">
-                <div class="good-block">
-                  <div class="good-block__image-block">
-                    <img src="images/good1.png" alt="">
-                  </div>
-                  <div class="good-block__info">
-                    <div class="info__text-block">
-                      <div class="text-block__name">Hand Sandwich</div>
-                      <div class="text-block__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est, adipiscing. </div>
-                    </div>
-                    <div class="info__price">$10.25</div>
-                  </div>
-                </div>
-                <div class="good-block">
-                  <div class="good-block__image-block">
-                    <img src="images/good2.png" alt="">
-                  </div>
-                  <div class="good-block__info">
-                    <div class="info__text-block">
-                      <div class="text-block__name">Hand Sandwich</div>
-                      <div class="text-block__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est, adipiscing. </div>
-                    </div>
-                    <div class="info__price">$10.25</div>
-                  </div>
-                </div>
-                <div class="good-block">
-                  <div class="good-block__image-block">
-                    <img src="images/good3.png" alt="">
-                  </div>
-                  <div class="good-block__info">
-                    <div class="info__text-block">
-                      <div class="text-block__name">Hand Sandwich</div>
-                      <div class="text-block__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est, adipiscing. </div>
-                    </div>
-                    <div class="info__price">$10.25</div>
-                  </div>
-                </div>
-                <div class="good-block">
-                  <div class="good-block__image-block">
-                    <img src="images/good4.png" alt="">
-                  </div>
-                  <div class="good-block__info">
-                    <div class="info__text-block">
-                      <div class="text-block__name">Hand Sandwich</div>
-                      <div class="text-block__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est, adipiscing. </div>
-                    </div>
-                    <div class="info__price">$10.25</div>
-                  </div>
-                </div>
-                <div class="good-block">
-                  <div class="good-block__image-block">
-                    <img src="images/good5.png" alt="">
-                  </div>
-                  <div class="good-block__info">
-                    <div class="info__text-block">
-                      <div class="text-block__name">Hand Sandwich</div>
-                      <div class="text-block__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est, adipiscing. </div>
-                    </div>
-                    <div class="info__price">$10.25</div>
-                  </div>
-                </div>
-                <div class="good-block">
-                  <div class="good-block__image-block">
-                    <img src="images/good6.png" alt="">
-                  </div>
-                  <div class="good-block__info">
-                    <div class="info__text-block">
-                      <div class="text-block__name">Hand Sandwich</div>
-                      <div class="text-block__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est, adipiscing. </div>
-                    </div>
-                    <div class="info__price">$10.25</div>
-                  </div>
-                </div>
+                    @foreach ($products as $product)
+                    <a href="{{route('getOneProduct', ['id' => $product->id])}}">
+                        <div class="good-block">
+                            <div class="good-block__image-block">
+                            <img src="{{asset($product->photo)}}" alt="">
+                            </div>
+                            <div class="good-block__info">
+                            <div class="info__text-block">
+                                <div class="text-block__name">{{$product->name}}</div>
+                                <div class="text-block__description">{{$product->description}}</div>
+                            </div>
+                            <div class="info__price">{{$product->price}} $</div>
+                            </div>
+                        </div>
+                    </a>
+                    @endforeach
               </div>
             </div>
           </section>
@@ -399,10 +353,10 @@
                     </div>
                     <div class="download-block__apps-block">
                       <div class="apps-block__GP" >
-                        <a href="#"><img src="images/Google Play Btn.png" alt=""></a>
+                        <a href="https://play.google.com/store/apps?gl=UA"><img src="{{asset('images/Google-Play-Btn.png')}}" alt=""></a>
                       </div>
                       <div class="apps-block__AS">
-                        <a href="#"><img src="images/Apple Store.png" alt=""></a>
+                        <a href="https://www.apple.com/ua/app-store/"><img src="{{asset('images/Apple-Store.png')}}" alt=""></a>
                       </div>
                     </div>
                   </div>
@@ -463,9 +417,16 @@
             <img src="images/footerBcg.png" alt="" class="footerBcg">
         </footer>
       </div>
-      <script src="js/main.js"> </script>
+      {{-- <script src="{{js/main.js}}"> </script> --}}
       <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
       <script>
+        document.addEventListener('scroll', ()=>{
+          if(document.querySelector('body').scrollTop>0){
+            document.querySelector('.header').classList.add('header-background');
+          } else {
+            document.querySelector('.header').classList.remove('header-background');
+          }
+        })
         var swiper = new Swiper(".mySwiper", {
           cssMode: true,
           navigation: {
@@ -475,19 +436,12 @@
           mousewheel: true,
           keyboard: true,
         });
-
-        document.querySelector('.burger-menu').addEventListener('click', ()=>{
-          document.querySelector('.sidebar').classList.toggle('sidebar--active');
-          document.querySelector('body').classList.toggle('body--disable');
-        })
-
-        document.addEventListener('scroll', ()=>{
-          if(document.querySelector('body').scrollTop>0){
-            document.querySelector('.header').classList.add('header-background');
-          } else {
-            document.querySelector('.header').classList.remove('header-background');
-          }
-        })
+        if(document.querySelector('.burger-menu')){
+            document.querySelector('.burger-menu').addEventListener('click', ()=>{
+                document.querySelector('.sidebar').classList.toggle('sidebar--active');
+                document.querySelector('body').classList.toggle('body--disable');
+            })
+        }
       </script>
     </body>
   </html>

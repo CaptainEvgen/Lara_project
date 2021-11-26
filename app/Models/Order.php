@@ -3,22 +3,18 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Models\Order;
-use App\Models\Product;
+use App\Models\Restaurant;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Restaurant extends Model
+class Order extends Model
 {
     use HasFactory;
 
-    public function product(){
-        return $this->hasMany(Product::class);
+    public function restaurant(){
+        return $this->belongsTo(Restaurant::class);
     }
     public function user(){
         return $this->hasOne(User::class);
-    }
-    public function order(){
-        return $this->hasMany(Order::class);
     }
 }

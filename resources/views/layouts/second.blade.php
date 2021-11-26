@@ -6,7 +6,6 @@
       <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
       <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
       <title>Expice</title>
-      <script src="js/libs.min.js"></script>
       <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
       <link rel="stylesheet" href="{{asset('css/main.css')}}"/>
     </head>
@@ -18,10 +17,10 @@
                 <div class="sidebar__item">
                   <div class="user-sidebar">
                     <div class="user-sidebar__icon">
-                      <img src="/images/User icon.svg" >
+                      <img src="{{asset('images/User-icon.svg')}}" >
                     </div>
                     <div class="user-sidebar__name menu-caret">{{Auth::user()->first_name}}
-                      <img src="/images/arrowDown.svg" class="menu-caret__icon">
+                      <img src="{{asset('images/arrowDown.svg')}}" class="menu-caret__icon">
                       <ul class="caret">
                         <li class="caret__item">статус: {{Auth::user()->role->name}}</li>
                         @if (Auth::user()->role->name === 'manager')
@@ -65,11 +64,11 @@
                   @if (Auth::check())
                     <div class="user-panel">
                         <div class="user-panel__icon">
-                            <img src="images/User icon.svg" alt="">
+                            <img src="{{ asset('/images/user-icon.svg') }}" >
                             <div class="user-panel__icon--active"></div>
                         </div>
                         <div class="user-panel__name menu-caret">{{Auth::user()->first_name}}
-                            <img src="images/arrowDown.svg" class="menu-caret__icon">
+                            <img src="{{asset('images/arrowDown.svg')}}" class="menu-caret__icon">
                             <ul class="caret">
                                 <li class="caret__item">статус: {{Auth::user()->role->name}}</li>
                                 @if (Auth::user()->role->name === 'manager')
@@ -84,7 +83,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="burger-menu"><img src="images/burger-menu.png" alt=""></div>
+                    <div class="burger-menu"><img src="{{asset("images/burger-menu.png")}}" alt=""></div>
                   @else
                     <div class="user-panel__icon p-0">
                         <a href="{{route('login')}}"><img src="https://img.icons8.com/ios/50/000000/login-rounded-right--v1.png"/></a>
@@ -108,22 +107,22 @@
               <div class="networks-block">
                 <a href="#">
                   <div class="networks-block__item">
-                    <img src="images/Facebook.png" alt="">
+                    <img src="{{asset("images/Facebook.png")}}" alt="">
                   </div>
                 </a>
                 <a href="#">
                   <div class="networks-block__item">
-                    <img src="images/Twitter.png" alt="">
+                    <img src="{{asset('images/Twitter.png')}}" alt="">
                   </div>
                 </a>
                 <a href="#">
                   <div class="networks-block__item">
-                    <img src="images/Linkedin.png" alt="">
+                    <img src="{{asset("images/Linkedin.png")}}" alt="">
                   </div>
                 </a>
                 <a href="#">
                   <div class="networks-block__item">
-                    <img src="images/Behance.png" alt="">
+                    <img src="{{asset('images/Behance.png')}}" alt="">
                   </div>
                 </a>
               </div>
@@ -131,9 +130,15 @@
             </div>
         </footer>
       </div>
-      <script src="js/main.js"> </script>
       <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
       <script>
+        document.addEventListener('scroll', ()=>{
+          if(document.querySelector('body').scrollTop>0){
+            document.querySelector('.header').classList.add('header-background');
+          } else {
+            document.querySelector('.header').classList.remove('header-background');
+          }
+        })
         var swiper = new Swiper(".mySwiper", {
           cssMode: true,
           navigation: {
@@ -143,19 +148,12 @@
           mousewheel: true,
           keyboard: true,
         });
-
-        document.querySelector('.burger-menu').addEventListener('click', ()=>{
-          document.querySelector('.sidebar').classList.toggle('sidebar--active');
-          document.querySelector('body').classList.toggle('body--disable');
-        })
-
-        // document.addEventListener('scroll', ()=>{
-        //   if(document.querySelector('body').scrollTop>0){
-        //     document.querySelector('.header').classList.add('header-background');
-        //   } else {
-        //     document.querySelector('.header').classList.remove('header-background');
-        //   }
-        // })
+        if(document.querySelector('.burger-menu')){
+            document.querySelector('.burger-menu').addEventListener('click', ()=>{
+                document.querySelector('.sidebar').classList.toggle('sidebar--active');
+                document.querySelector('body').classList.toggle('body--disable');
+            })
+        }
       </script>
     </body>
   </html>
