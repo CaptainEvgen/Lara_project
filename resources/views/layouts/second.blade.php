@@ -96,39 +96,42 @@
         @section('main')
 
         @show
-        <footer class="footer">
-            <div class="footer-secondary-block">
-                <div class="anchor-block">
-                    <div class="anchor-block__item">Product </div>
-                    <div class="anchor-block__item">Company</div>
-                    <div class="anchor-block__item">Learn more</div>
-                    <div class="anchor-block__item">Get in touch </div>
+        @section('footer')
+            <footer class="footer">
+                <div class="footer-secondary-block">
+                    <div class="anchor-block">
+                        <div class="anchor-block__item">Product </div>
+                        <div class="anchor-block__item">Company</div>
+                        <div class="anchor-block__item">Learn more</div>
+                        <div class="anchor-block__item">Get in touch </div>
+                    </div>
+                <div class="networks-block">
+                    <a href="#">
+                    <div class="networks-block__item">
+                        <img src="{{asset("images/Facebook.png")}}" alt="">
+                    </div>
+                    </a>
+                    <a href="#">
+                    <div class="networks-block__item">
+                        <img src="{{asset('images/Twitter.png')}}" alt="">
+                    </div>
+                    </a>
+                    <a href="#">
+                    <div class="networks-block__item">
+                        <img src="{{asset("images/Linkedin.png")}}" alt="">
+                    </div>
+                    </a>
+                    <a href="#">
+                    <div class="networks-block__item">
+                        <img src="{{asset('images/Behance.png')}}" alt="">
+                    </div>
+                    </a>
                 </div>
-              <div class="networks-block">
-                <a href="#">
-                  <div class="networks-block__item">
-                    <img src="{{asset("images/Facebook.png")}}" alt="">
-                  </div>
-                </a>
-                <a href="#">
-                  <div class="networks-block__item">
-                    <img src="{{asset('images/Twitter.png')}}" alt="">
-                  </div>
-                </a>
-                <a href="#">
-                  <div class="networks-block__item">
-                    <img src="{{asset("images/Linkedin.png")}}" alt="">
-                  </div>
-                </a>
-                <a href="#">
-                  <div class="networks-block__item">
-                    <img src="{{asset('images/Behance.png')}}" alt="">
-                  </div>
-                </a>
-              </div>
-              <div class="copyright">&copy; 2020 Expice Studio</div>
-            </div>
-        </footer>
+                <div class="copyright">&copy; 2020 Expice Studio</div>
+                </div>
+            </footer>
+        @show
+
       </div>
       <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
       <script>
@@ -155,5 +158,9 @@
             })
         }
       </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{{asset('js/scripts.js')}}"></script>
+        <script src="{{asset('js/datatables-simple-demo.js')}}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     </body>
   </html>

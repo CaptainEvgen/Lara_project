@@ -24,4 +24,32 @@ class OrderController extends Controller
         $order->save();
         return redirect()->route('homepage')->with('message', 'Ваш заказ принят. Дождитесь подтверждения от администратора ресторана.');
     }
+    public function userOrders($id){
+        $orders = Order::where('user_id', $id)
+            ->get();
+        return view('order.userOrders', [
+            'orders' => $orders,
+        ]);
+    }
+    public function restaurantOrders($id){
+        $orders = Order::where('restaurant_id', $id)
+        ->get();
+        return view('order.restaurantOrders', [
+            'orders' => $orders,
+        ]);
+    }
+    public function confirmOrder($id){
+        $order = Order::where('id', $id)
+        ->first();
+        $order->confirm_admin = true;
+        $order->save();
+        return redirect()->route('restaurantOrders',['id' => Auth::user()->restaurant_id])->with('message', 'Вы приняли заказ № '.$id);
+    }
+    public function canсelOrder($id){
+        $order = Order::where('id', $id)
+        ->first();
+        $order->cancel_reservation = true;
+        $order->save();
+        return redirect()->route('userOrders',['id' => Auth::user()->id])->with('message', 'Вы отменили заказ № '.$id);
+    }
 }

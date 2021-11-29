@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->integer('guests')->default(2);
             $table->integer('table')->default(0);
             $table->boolean('confirm_admin')->default(false);
-            $table->boolean('cansel_reservation')->default(false);
+            $table->boolean('cancel_reservation')->default(false);
             $table->timestamps();
         });
     }

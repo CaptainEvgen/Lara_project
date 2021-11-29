@@ -14,4 +14,8 @@ class AdminController extends Controller
         $products = Product::where('restaurant_id', $id)->get();
         return view('admin.getAllByRestaurant', ['products' => $products]);
     }
+    public function getTableByRestaurant($id){
+        $products = Product::where('restaurant_id', $id)->get();
+        return view('admin.getTableByRestaurant', ['products' => $products]);
+    }
 }

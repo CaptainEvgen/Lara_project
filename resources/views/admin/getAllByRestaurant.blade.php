@@ -5,8 +5,8 @@
 <div class="container">
 
     @foreach ($products as $product)
-        <div class="flexbox block">
-            <div class="block">
+        <div class="flexbox ">
+            <div>
                 <table class="block_table">
                     <tr>
                         <td>Название продукта</td>

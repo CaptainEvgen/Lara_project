@@ -11,7 +11,7 @@ class HomeController extends Controller
     public function showHomePage(){
         $restaurants = Restaurant::all();
         $products = Product::inRandomOrder()->paginate(6);
-        return view('layouts.app',[
+        return view('home.showHomePage',[
             'restaurants' => $restaurants,
             'products' => $products,
         ]);

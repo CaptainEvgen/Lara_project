@@ -38,7 +38,7 @@
         border: none
         margin-left: 40px
         font-size: 16px
-        z-index: 2
+        z-index: 1
     &__button
         background-color: $secBcg
         border-radius: 50%
@@ -55,7 +55,7 @@
     color: $secColor
     font-size: 16px
     &__item
-        z-index: 2
+        z-index: 1
         &:hover
             opacity: 0.8
             cursor: pointer
@@ -63,7 +63,7 @@
     display: flex
     margin-right: 50px
     align-items: end
-    z-index: 2
+    z-index: 1
     &__item
         margin-right: 30px
         &:hover
@@ -102,3 +102,33 @@
             width: 40px
             height: 40px
             padding: 10px 8px
+
+
+    // sec_footer
+
+.sec_footer
+    display: flex
+    justify-content: space-evenly
+    padding: 1%
+    background-color: $thirdBcg
+.sec_footer__anchors
+    display: flex
+    justify-content: space-evenly
+    color: $secColor
+    font-size: 16px
+.anchors__item
+    margin-right: 30px
+    &:hover
+        opacity: 0.8
+        cursor: pointer
+.sec_footer__networks
+    display: flex
+    margin-right: 50px
+    align-items: end
+.networks__item
+    margin-right: 30px
+    &:hover
+        opacity: 0.8
+        cursor: pointer
+.sec_footer__copyright
+    color: #000

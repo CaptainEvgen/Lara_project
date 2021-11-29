@@ -20,6 +20,12 @@ class ProductController extends Controller
             'restaurant' =>$restaurant,
         ]);
     }
+    public function getAllProducts(){
+        $products = Product::inRandomOrder()->paginate(9);
+        return view('product.getAllProducts', [
+            'products' => $products,
+        ]);
+    }
     public function getByRestaurant($id){
         $products = Product::where('restaurant_id', $id)->get();
         $restaurant = Restaurant::findOrFail($id);

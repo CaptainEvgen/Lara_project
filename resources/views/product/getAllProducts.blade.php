@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @extends('sections.footer')
 @section('main')
-    <h1>Ресторан: {{$restaurant->name}}</h1>
     <div class="showcase__scroll">
         @foreach ($products as $product)
             <a href="{{route('getOneProduct', ['id' => $product->id])}}">
@@ -19,5 +18,7 @@
                 </div>
             </a>
         @endforeach
+
     </div>
+    {{ $products->onEachSide(5)->links() }}
 @endsection

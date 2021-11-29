@@ -8,8 +8,8 @@
     z-index: 2
     & .container
         z-index: 3
-.relative
-    position: relative
+.header-BG
+    background: linear-gradient(to right, $mainBcg 70%, $secBcg 30%)
 .header-background
     position: fixed
     max-width: inherit
@@ -59,7 +59,7 @@
     background: linear-gradient(to right, $mainBcg 75%, #fe043aa6 25%)
     left: -250%
     transition: left 0.5s linear
-    z-index: +2
+    z-index: 3
     padding-top: 40px
     &__item
         display: block
@@ -113,6 +113,8 @@
 /*Menu-caret style end*/
 
 @media only screen and (max-width: 1750px)
+    .header-BG
+        background: linear-gradient(to right, $mainBcg 75%, $secBcg 25%)
     .header-background
         background: linear-gradient(to right, $mainBcg 75%, $secBcg 25%)
     .logo

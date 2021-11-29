@@ -1,5 +1,5 @@
-@extends('layouts.second')
-
+@extends('layouts.app')
+@extends('sections.footer')
 @section('main')
 <div class="container">
     <h1><a href="{{route('byRestaurant',['id' => $restaurant->id])}}">Ресторан: {{$restaurant->name}}</a></h1>

@@ -12524,8 +12524,8 @@ h5,
   z-index: 3;
 }
 
-.relative {
-  position: relative;
+.header-BG {
+  background: linear-gradient(to right, #FFF5EC 70%, #FE043C 30%);
 }
 
 .header-background {
@@ -12592,7 +12592,7 @@ h5,
   background: linear-gradient(to right, #FFF5EC 75%, #fe043aa6 25%);
   left: -250%;
   transition: left 0.5s linear;
-  z-index: 2;
+  z-index: 3;
   padding-top: 40px;
 }
 .sidebar__item {
@@ -12666,6 +12666,10 @@ h5,
 
 /*Menu-caret style end*/
 @media only screen and (max-width: 1750px) {
+  .header-BG {
+    background: linear-gradient(to right, #FFF5EC 75%, #FE043C 25%);
+  }
+
   .header-background {
     background: linear-gradient(to right, #FFF5EC 75%, #FE043C 25%);
   }
@@ -12751,7 +12755,7 @@ h5,
   border: none;
   margin-left: 40px;
   font-size: 16px;
-  z-index: 2;
+  z-index: 1;
 }
 .footer-input-block__button {
   background-color: #FE043C;
@@ -12773,7 +12777,7 @@ h5,
   font-size: 16px;
 }
 .anchor-block__item {
-  z-index: 2;
+  z-index: 1;
 }
 .anchor-block__item:hover {
   opacity: 0.8;
@@ -12784,7 +12788,7 @@ h5,
   display: flex;
   margin-right: 50px;
   align-items: end;
-  z-index: 2;
+  z-index: 1;
 }
 .networks-block__item {
   margin-right: 30px;
@@ -12842,6 +12846,46 @@ h5,
     padding: 10px 8px;
   }
 }
+.sec_footer {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1%;
+  background-color: #FFEDDE;
+}
+
+.sec_footer__anchors {
+  display: flex;
+  justify-content: space-evenly;
+  color: #707070;
+  font-size: 16px;
+}
+
+.anchors__item {
+  margin-right: 30px;
+}
+.anchors__item:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.sec_footer__networks {
+  display: flex;
+  margin-right: 50px;
+  align-items: end;
+}
+
+.networks__item {
+  margin-right: 30px;
+}
+.networks__item:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.sec_footer__copyright {
+  color: #000;
+}
+
 /* * Buttons styling
  * */
 .button {
@@ -13040,7 +13084,6 @@ h5,
 }
 @media only screen and (max-width: 1750px) {
   .food-section {
-    padding-top: 180px;
     height: 925px;
     background: linear-gradient(to right, #FFF5EC 75%, #FE043C 25%);
   }
@@ -14075,4 +14118,32 @@ a:hover {
 
 .block_table td {
   border: 1px solid black;
+}
+
+.topPadding {
+  padding-top: 180px;
+}
+
+@media only screen and (max-width: 991px) {
+  .topPadding {
+    padding-top: 100px;
+  }
+}
+.main {
+  min-height: 90vh;
+}
+
+.confirmed {
+  background-color: #d1e7dd;
+  border-color: #badbcc;
+}
+
+.canseled {
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
+
+.pending {
+  background-color: #fff3cd;
+  border-color: #ffecb5;
 }
