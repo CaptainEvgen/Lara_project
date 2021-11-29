@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Order;
 
 class AdminController extends Controller
 {
     public function showHomePage(){
-        return view('layouts.admin');
+        $orders = Order::where('restaurant_id', Auth::user()->restaurant_id)->get();
+        return view('layouts.admin', ['orders' => $orders]);
     }
     public function getAllByRestaurant($id){
         $products = Product::where('restaurant_id', $id)->get();
