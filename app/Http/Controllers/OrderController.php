@@ -22,7 +22,8 @@ class OrderController extends Controller
         $order->date = $data['date'];
         $order->guests = $data['guests'];
         $order->save();
-        return redirect()->route('homepage')->with('message', 'Ваш заказ принят. Дождитесь подтверждения от администратора ресторана.');
+        // return redirect()->route('homepage')->with('message', 'Ваш заказ принят. Дождитесь подтверждения от администратора ресторана.');
+        // return response()->json(['message'=>'Form is successfully submitted!']);
     }
     public function userOrders($id){
         $orders = Order::where('user_id', $id)
@@ -43,7 +44,8 @@ class OrderController extends Controller
         ->first();
         $order->confirm_admin = true;
         $order->save();
-        return redirect()->route('restaurantOrders',['id' => Auth::user()->restaurant_id])->with('message', 'Вы приняли заказ № '.$id);
+
+        //return redirect()->route('restaurantOrders',['id' => Auth::user()->restaurant_id])->with('message', 'Вы приняли заказ № '.$id);
     }
     public function canсelOrder($id){
         $order = Order::where('id', $id)

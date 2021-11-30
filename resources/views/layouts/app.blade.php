@@ -48,13 +48,15 @@
                     @endif
                     <div class="row">
                     <div class="col-4 col-lg-2">
-                        <div class="logo">
-                        expice
-                        </div>
+                        <a href="{{route('homepage')}}">
+                            <div class="logo">
+                            expice
+                            </div>
+                        </a>
                     </div>
                     <div class="col-6 col-sm-7 col-lg-4 offset-lg-1">
                         <div class=" menu">
-                            <div class="menu__item"><a href="#">Рестораны</a></div>
+                            <div class="menu__item"><a href="{{route('getAllRestaurants')}}">Рестораны</a></div>
                             <div class="menu__item"><a href="{{route('getAllProducts')}}">Все блюда</a></div>
                             <div class="menu__item">
                                 @auth
@@ -134,7 +136,47 @@
                     document.querySelector('body').classList.toggle('body--disable');
                 })
             }
+
+            function fetchSendForm(form, url, message){
+                form.addEventListener('submit',function(event){
+                    event.preventDefault();
+
+                    let formData = new FormData(form);
+                    let fetchData = {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            "Accept":"application/json"
+                        },
+                    }
+
+                    fetch(url, fetchData)
+                        .then(
+                            response => {
+                                if(!response.ok){
+                                    response.json()
+                                        .then(
+                                            result => {
+                                                let errors = result.errors;
+                                                for (let err in errors){
+                                                    message.classList.add('alert');
+                                                    message.classList.add('alert-danger');
+                                                    message.innerHTML = errors[err];
+                                                }
+                                            }
+                                        )
+                                }else{
+                                    message.classList.add('alert');
+                                    message.classList.remove('alert-danger');
+                                    message.classList.add('alert-success');
+                                    message.innerHTML = 'Заказ успешно добавлен';
+                                }
+                            },
+                        )
+                });
+            }
         </script>
         @yield('script')
+
     </body>
   </html>

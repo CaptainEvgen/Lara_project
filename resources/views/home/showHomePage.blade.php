@@ -74,7 +74,8 @@
             </div>
         </div>
         <div class="restaurant-preview">
-            <div class="preview-block first-block">
+            <div class="preview-block">
+                <img src="{{asset('/images/firewatterimg.png')}}" class="preview-block__image">
                 <div class="preview-block__info">
                 <div class="preview-block__info-name">Fire Water</div>
                 <div class="preview-block__info-description">we are all about we are all about to the fullest and all content dining out or in!dining out or in!</div>
@@ -86,7 +87,8 @@
                 <div class="preview-block__info-button">Book Now</div>
                 </div>
             </div>
-            <div class="preview-block second-block">
+            <div class="preview-block">
+                <img src="{{asset('/images/thewontonimg.png')}}" class="preview-block__image">
                 <div class="preview-block__info">
                 <div class="preview-block__info-name">The Wonton </div>
                 <div class="preview-block__info-description">we are all about we are all about to the fullest and all content dining out or in!dining out or in!</div>
@@ -106,50 +108,53 @@
         </div>
         </section>
         <section class="booking">
-        <div class="booking-table">
-            <div class="booking-table__item">
-            <div class="table-line"></div>
-            </div>
-            <div class="booking-table__item">
-            <div class="table-name">
-                advance booking
-            </div>
-            </div>
-            @if($errors->any())
-                <h4 class="validation-fail"> {{$errors->first()}}</h4>
-            @endif
-            <form action="{{route('makeOrder')}}" method="post">
-                @csrf
-                <div class="booking-table__item input-block">
-                        <select class="form-control table-input" name="restaurant" value="{{old('restaurant')}}">
-                            <option >search restraurant</option>
-                            @foreach ($restaurants as $restaurant)
-                                <option value="{{$restaurant->id}}">{{$restaurant->name}}</option>
-                            @endforeach
-                        </select>
-                    <input name="submit" type="submit" class="table-button" value="go">
+            <div class="booking-table">
+                <div class="booking-table__item">
+                <div class="table-line"></div>
                 </div>
                 <div class="booking-table__item">
-                    <div class="table-info">
-                    <div class="table-info__block">
-                        <div class="input-label">Date</div>
-                        <input type="date" class="block-input" name="date" value="{{old('date')}}">
-                    </div>
-                    <div class="table-info__block">
-                        <div class="input-label"> Time</div>
-                        <input type="time" class="block-input" name="time" value="{{old('time')}}">
-                    </div>
-                    <div class="table-info__block">
-                        <div class="input-label">Guests</div>
-                        <input type="number" placeholder="2 People" maxlength="2" class="block-input" name="guests" value="{{old('guests')}}">
-                    </div>
-                    </div>
+                <div class="table-name">
+                    advance booking
                 </div>
-            </form>
-        </div>
-        <img src="images/leftSalad.png" alt="" class="left-salad">
-        <img src="images/rightSalad.png" alt="" class="right-salad">
+                </div>
+                {{-- @if($errors->any())
+                    <h4 class="validation-fail"> {{$errors->first()}}</h4>
+                @endif --}}
+                <div class="fetch">
+                </div>
+                <form action="{{route('makeOrder')}}" method="post">
+                    @csrf
+                    <div class="booking-table__item input-block">
+                            <select class="form-control table-input" name="restaurant" value="{{old('restaurant')}}">
+                                <option >search restraurant</option>
+                                @foreach ($restaurants as $restaurant)
+                                    <option value="{{$restaurant->id}}">{{$restaurant->name}}</option>
+                                @endforeach
+                            </select>
+                        <input name="submit" type="submit" class="table-button" value="go">
+                    </div>
+                    <div class="booking-table__item">
+                        <div class="table-info">
+                        <div class="table-info__block">
+                            <div class="input-label">Date</div>
+                            <input type="date" class="block-input" name="date" value="{{old('date')}}">
+                        </div>
+                        <div class="table-info__block">
+                            <div class="input-label"> Time</div>
+                            <input type="time" class="block-input" name="time" value="{{old('time')}}">
+                        </div>
+                        <div class="table-info__block">
+                            <div class="input-label">Guests</div>
+                            <input type="number" placeholder="2 People" maxlength="2" class="block-input" name="guests" value="{{old('guests')}}">
+                        </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <img src="images/leftSalad.png" alt="" class="left-salad">
+            <img src="images/rightSalad.png" alt="" class="right-salad">
         </section>
+
         <section class="services">
         <div class="container">
             <div class="services__description">
@@ -328,39 +333,11 @@
 
 @section('script')
     <script>
-
-        let message = document.querySelector('.alert-info');
+        let message = document.querySelector('.fetch');
         let form = document.querySelector('form');
-        form.addEventListener('submit',function(event){
-            event.preventDefault();
+        let url = '{{route('makeOrder')}}';
 
-            let name = form.querySelector('[name = "name"]').value;
-            let date = form.querySelector('[name = "date"]').value;
-            let time = form.querySelector('[name = "time"]').value;
-            let guests = form.querySelector('[name = "guests"]').value;
-
-            let promise = fetch("{{route('makeOrder')}}", {
-                method: 'POST',
-                data:{
-                    "_token": "{{ csrf_token() }}",
-                    name:name,
-                    date:date,
-                    time:time,
-                    guests:suguestsbject,
-                }
-            });
-                // promise
-                //     .then(
-                //         response => {
-                //             return response.text();
-                //         }
-                //     )
-                //     .then(
-                //         text => {
-                //             message.innerHTML = text;
-                //         }
-                //     );
-        });
+        fetchSendForm(form, url, message);
     </script>
 @endsection
 

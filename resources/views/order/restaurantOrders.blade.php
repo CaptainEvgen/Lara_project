@@ -7,6 +7,7 @@
         <table id="datatablesSimple">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Фамилия</th>
                     <th>Имя</th>
                     <th>Номер телефона</th>
@@ -18,6 +19,7 @@
             </thead>
             <tfoot>
                 <tr>
+                    <th>ID</th>
                     <th>Фамилия</th>
                     <th>Имя</th>
                     <th>Номер телефона</th>
@@ -40,9 +42,22 @@
                         @endif
                     @endif
                     ">
+                        <td>{{$order->id}}</td>
                         <td>{{$order->user->last_name}}</td>
                         <td>{{$order->user->first_name}}</td>
-                        <td>{{$order->user->telephone_number}}</td>
+                        <td>{{$order->user->telephone_number}}
+                        @if ($orders
+                        ->where('user_id', $order->user->id)
+                        ->where('restaurant_id', Auth::user()->restaurant_id)
+                        ->count() > 5)
+                            <i class="fas fa-crown"></i>
+                        @endif
+                        @if($orders->where('user_id', $order->user->id)
+                        ->where('restaurant_id', Auth::user()->restaurant_id)
+                        ->where('cancel_reservation' , true)
+                        ->count() > 5)
+                            <i class="fas fa-exclamation"></i>
+                        @endif</td>
                         <td>{{$order->date}}</td>
                         <td>{{$order->time}}</td>
                         <td>{{$order->guests}}</td>
@@ -50,7 +65,7 @@
                             @if ($order->confirm_admin)
                                 Принят ({{$order->updated_at}})
                             @else
-                               Не обработан (<a href="{{route('confirmOrder',[ 'id' => $order->id])}}">Принять</a>)
+                                <a class="buttonConfirm" data-id="{{$order->id}}">Не обработан</a>
                             @endif
                         </td>
                     </tr>
@@ -60,3 +75,27 @@
     @endif
 </div>
 @endsection
+@section('script')
+    <script>
+
+        let text = 'Заказ принят';
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('buttonConfirm')) {
+                let id = e.target.dataset.id;
+                let url = '/manager/confirm/' + id;
+                fetch(url)
+                        .then(
+                            response => {
+                                e.target.innerHTML = text;
+
+                            }
+                        );
+            }
+        });
+
+
+
+
+    </script>
+@endsection
+

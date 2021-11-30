@@ -13388,12 +13388,22 @@ h5,
   text-align: end;
 }
 
+.middle {
+  justify-content: space-around;
+}
+
 .preview-block {
   margin: 5px;
   position: relative;
   width: 639px;
   height: 636px;
   border-radius: 20px;
+}
+.preview-block__image {
+  -o-object-fit: cover;
+     object-fit: cover;
+  height: 100%;
+  width: 100%;
 }
 .preview-block__info {
   position: absolute;
@@ -14146,4 +14156,8 @@ a:hover {
 .pending {
   background-color: #fff3cd;
   border-color: #ffecb5;
+}
+
+.fetch {
+  z-index: 3;
 }
