@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Заказы ресторана {{Auth::user()->restaurant->name}}}</h1>
+    <h1>Заказы ресторана {{Auth::user()->restaurant->name}}</h1>
     @if ($orders)
         <table id="datatablesSimple">
             <thead>

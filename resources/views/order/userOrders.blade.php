@@ -61,6 +61,3 @@
         </table>
     </div>
 @endsection
-
-
-Б

@@ -36,10 +36,10 @@
                         </div>
                     </div>
                     </div>
-                    <div class="sidebar__item"><a href="#">Рестораны</a></div>
+                    <div class="sidebar__item"><a href="{{route('getAllRestaurants')}}">Рестораны</a></div>
                     <div class="sidebar__item"><a href="{{route('getAllProducts')}}">Все блюда</a></div>
                     <div class="sidebar__item"><a href="{{route('userOrders', ['id' => Auth::user()->id])}}">История заказов</a></div>
-                    <div class="sidebar__item"><a href="#">Menu Four</a></div>
+                    <div class="sidebar__item"><a href="#">Свободный слот</a></div>
                 </div>
                 @endauth
                 <div class="container">
@@ -58,12 +58,8 @@
                         <div class=" menu">
                             <div class="menu__item"><a href="{{route('getAllRestaurants')}}">Рестораны</a></div>
                             <div class="menu__item"><a href="{{route('getAllProducts')}}">Все блюда</a></div>
-                            <div class="menu__item">
-                                @auth
-                                    <a href="{{route('userOrders', ['id' => Auth::user()->id])}}">История заказов</a>
-                                @endauth
-                            </div>
-                        <div class="menu__item"><a href="#">Menu Four</a></div>
+                            <div class="menu__item"><a href="{{route('userOrders', ['id' => Auth::user()->id])}}">История заказов</a></div>
+                            <div class="menu__item"><a href="#">Свободный слот</a></div>
                         </div>
                     </div>
                     <div class="col-1 offset-lg-4">
@@ -81,10 +77,10 @@
                                             <li class="caret__item"><a href="{{route('manager')}}"> кабинет менеджера</a></li>
                                         @endif
                                         @if (Auth::user()->role->name === 'admin')
-                                            <li class="caret__item"><a href="{{route('admin')}}">админка</a></li>
+                                            <li class="caret__item"><a href="{{route('admin')}}">панель администратора</a></li>
                                         @endif
                                         @if (Auth::check())
-                                            <li class="caret__item"><a href="{{route('logout')}}">выйти</a></li>
+                                            <li class="caret__item"><a href="{{route('logout')}}">выйти из профиля</a></li>
                                         @endif
                                     </ul>
                                 </div>
