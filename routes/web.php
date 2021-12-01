@@ -27,6 +27,7 @@ Route::get('/product/getOne/{id}', [ProductController::class,'getOneProduct'])->
 Route::get('/restaurant/{id}', [ProductController::class,'getByRestaurant'])->where(['id' => '[\d]+'])->name('byRestaurant');
 Route::get('/products/all', [ProductController::class,'getAllProducts'])->name('getAllProducts');// по всем ресторанам
 Route::get('/restaurants', [RestaurantController::class,'getAllRestaurants'])-> name('getAllRestaurants');
+Route::post('/search', [HomeController::class,'search'])-> name('search');
 
 
 
@@ -36,6 +37,8 @@ Route::middleware('auth')->group(function(){
     Route::get('/userOrders/{id}', [OrderController::class,'userOrders'])->where(['id' => '[\d]+'])->name('userOrders');
     Route::match(['get', 'post'],'/makeOrder', [OrderController::class,'makeOrder'])->name('makeOrder');
     Route::get('/cancel/{id}', [OrderController::class,'canсelOrder'])->where(['id' => '[\d]+'])->name('cancelOrder');
+    Route::post('/setEmail', [HomeController::class,'setEmail'])->name('setEmail');
+
 
     Route::middleware('role:manager')->group(function(){
         Route::get('/manager', [AdminController::class,'showHomePage'])->name('manager');

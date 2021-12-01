@@ -5,12 +5,20 @@
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <div class="description-block">
-                    <div class="description-block__main-para">Food</div>
-                    <div class="description-block__secondary-para">Discover Restaurant & Delicious Food</div>
-                    <div class="search-block">
-                        <input type="text" class="search-block__input" placeholder="Search Restaurant, Food">
-                        <button class="search-block__button">go</button>
-                    </div>
+                        <div class="description-block__main-para">Food</div>
+                        <div class="description-block__secondary-para">Discover Restaurant & Delicious Food</div>
+
+                        <form action="" method="post" id="searchForm">
+                            @csrf
+                            <div class="search-block">
+                                <input type="text" class="search-block__input" autocomplete="off" placeholder="Search Restaurant, Food" name="text">
+                                <input type="submit" class="search-block__button" value="go">
+                            </div>
+                        </form>
+                        <div class="search-list">
+
+                        </div>
+
                     </div>
                 </div>
                 <div class="col-12 col-lg-6 carousel-wrapper">
@@ -113,7 +121,7 @@
                 @endif --}}
                 <div class="fetch">
                 </div>
-                <form action="{{route('makeOrder')}}" method="post">
+                <form action="{{route('makeOrder')}}" method="post" id="orderForm">
                     @csrf
                     <div class="booking-table__item input-block">
                             <select class="form-control table-input" name="restaurant" value="{{old('restaurant')}}">
@@ -277,15 +285,19 @@
 @section('footer')
     <footer class="footer">
         <div class="footer-main-block">
-        <div class="footer-main-block__name">Get notified <br>
-            about new amazing products</div>
+        <div class="footer-main-block__name">Добавьте свою почту <br>
+            чтобы следить за новостями</div>
         <div class="footer-main-block__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Est, adipiscing cursus auctor eget sed phasellus senectus. </div>
-        <div class="footer-input-block">
-            <input type="email" class="footer-input-block__input" placeholder="E-mail">
-            <div class="footer-input-block__button">
-            <img src="images/rightArrowMini.png" alt="">
+        <form action="{{route('setEmail')}}" method="post" id="emailForm">
+            @csrf
+            <div class="footer-input-block">
+                <input type="email" class="footer-input-block__input" placeholder="E-mail" name="email">
+                <button class="footer-input-block__button" type='submit'>
+                <img src="images/rightArrowMini.png" alt="">
+                </button>
             </div>
-        </div>
+        </form>
+        <div class="email-message"></div>
         <div class="anchor-block">
             <div class="anchor-block__item">Product </div>
             <div class="anchor-block__item">Company</div>
@@ -325,10 +337,21 @@
 @section('script')
     <script>
         let message = document.querySelector('.fetch');
-        let form = document.querySelector('form');
-        let url = '{{route('makeOrder')}}';
+        let form = document.querySelector('#orderForm');
+        let url = "{{route('makeOrder')}}";
+        let text = 'Заказ успешно добавлен';
+        fetchSendForm(form, url, message, text);
 
-        fetchSendForm(form, url, message);
+        let iMessage = document.querySelector('.search-list');
+        let iUrl = "{{route('search')}}";
+        let input = document.querySelector('.search-block__input');
+        fetchSearchInput(input, iUrl, iMessage);
+
+        let eMessage = document.querySelector('.email-message');
+        let eForm = document.querySelector('#emailForm');
+        let eUrl = "{{route('setEmail')}}";
+        let eText = 'Email успешно добавлен';
+        fetchSendForm(eForm, eUrl, eMessage, eText);
     </script>
 @endsection
 

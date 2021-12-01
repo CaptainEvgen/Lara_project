@@ -58,7 +58,9 @@
                         <div class=" menu">
                             <div class="menu__item"><a href="{{route('getAllRestaurants')}}">Рестораны</a></div>
                             <div class="menu__item"><a href="{{route('getAllProducts')}}">Все блюда</a></div>
-                            <div class="menu__item"><a href="{{route('userOrders', ['id' => Auth::user()->id])}}">История заказов</a></div>
+                            @auth
+                                <div class="menu__item"><a href="{{route('userOrders', ['id' => Auth::user()->id])}}">История заказов</a></div>
+                            @endauth
                             <div class="menu__item"><a href="#">Свободный слот</a></div>
                         </div>
                     </div>
@@ -106,6 +108,7 @@
 
         <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="{{asset('js/functions-ES6.js')}}"></script>
         <script src="{{asset('js/scripts.js')}}"></script>
         <script src="{{asset('js/datatables-simple-demo.js')}}"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
@@ -133,44 +136,124 @@
                 })
             }
 
-            function fetchSendForm(form, url, message){
-                form.addEventListener('submit',function(event){
-                    event.preventDefault();
+            function fetchSearchForm(form, url, message){
+    f.addEventListener('submit',function(event){
+        event.preventDefault();
 
-                    let formData = new FormData(form);
-                    let fetchData = {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            "Accept":"application/json"
-                        },
+        let formData = new FormData(form);
+        let fetchData = {
+            method: 'post',
+            body: formData,
+            headers: {
+                "Accept":"application/json"
+            },
+        }
+        fetch(url, fetchData)
+            .then(
+                response => {
+                    return response.json();
+                }
+            )
+            .then(
+                json => {
+                    message.innerHTML = '';
+                    for(let obj of json){
+                        let route;
+                        let id = obj['id'];
+                        let name = obj['name'];
+                        if(obj['location_name']){
+                            route = '/restaurant/';
+                        } else {
+                            route = '/product/getOne/';
+                        }
+                        message.innerHTML +=('<div class="search-list__item"><a href="'+ route + id + '">'+ name +'</a></div>');
                     }
+                }
+            )
+    });
+}
 
-                    fetch(url, fetchData)
-                        .then(
-                            response => {
-                                if(!response.ok){
-                                    response.json()
-                                        .then(
-                                            result => {
-                                                let errors = result.errors;
-                                                for (let err in errors){
-                                                    message.classList.add('alert');
-                                                    message.classList.add('alert-danger');
-                                                    message.innerHTML = errors[err];
-                                                }
-                                            }
-                                        )
-                                }else{
-                                    message.classList.add('alert');
-                                    message.classList.remove('alert-danger');
-                                    message.classList.add('alert-success');
-                                    message.innerHTML = 'Заказ успешно добавлен';
-                                }
-                            },
-                        )
-                });
+function fetchSearchInput(input, url, mes){
+    input.addEventListener('input',function(){
+        let token = '{{csrf_token()}}';
+        let name = input.value;
+        let formData = new FormData();
+        formData.append('text', name);
+        formData.append('_token', token);
+        if(name.length > 0){
+            fetch(url, {
+                method: 'post',
+                body: formData,
+                headers: {
+                    "Accept":"application/json"
+                },
+            })
+                .then(
+                    response => {
+                        return response.json();
+                    }
+                )
+                .then(
+                    json => {
+                        mes.innerHTML = '';
+                        for(let obj of json){
+                            let route;
+                            let id = obj['id'];
+                            let name = obj['name'];
+                            if(obj['location_name']){
+                                route = '/restaurant/';
+                            } else {
+                                route = '/product/getOne/';
+                            }
+                            mes.innerHTML +=('<div class="search-list__item"><a href="'+ route + id + '">'+ name +'</a></div>');
+                        }
+                    }
+                )
+            } else {
+                mes.innerHTML = '';
             }
+    });
+}
+
+function fetchSendForm(form, url, message, text = ''){
+    form.addEventListener('submit',function(event){
+        event.preventDefault();
+
+        let formData = new FormData(form);
+        let fetchData = {
+            method: 'POST',
+            body: formData,
+            headers: {
+                "Accept":"application/json"
+            },
+        }
+
+        fetch(url, fetchData)
+            .then(
+                response => {
+                    if(!response.ok){
+                        response.json()
+                            .then(
+                                result => {
+                                    let errors = result.errors;
+                                    for (let err in errors){
+                                        message.classList.add('alert');
+                                        message.classList.add('alert-danger');
+                                        message.innerHTML = errors[err];
+                                    }
+                                }
+                            )
+                    }else{
+                        message.classList.add('alert');
+                        message.classList.remove('alert-danger');
+                        message.classList.add('alert-success');
+                        message.innerHTML = text;
+                    }
+                },
+            )
+    });
+}
+
         </script>
         @yield('script')
 

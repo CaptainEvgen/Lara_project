@@ -12982,6 +12982,17 @@ h5,
   opacity: 0.75;
 }
 
+.search-list {
+  position: absolute;
+  z-index: 1;
+  width: 670px;
+  background-color: white;
+  color: #2E266F;
+}
+.search-list__item {
+  padding: 5px;
+}
+
 .location-block {
   position: absolute;
   left: 0;
@@ -13111,6 +13122,10 @@ h5,
   }
   .search-block__button {
     width: 145px;
+  }
+
+  .search-list {
+    width: 460px;
   }
 
   .location-block {

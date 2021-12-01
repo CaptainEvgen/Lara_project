@@ -84,17 +84,13 @@
                 let id = e.target.dataset.id;
                 let url = '/manager/confirm/' + id;
                 fetch(url)
-                        .then(
-                            response => {
-                                e.target.innerHTML = text;
-
-                            }
-                        );
+                    .then(
+                        response => {
+                            e.target.innerHTML = text;
+                        }
+                    );
             }
         });
-
-
-
 
     </script>
 @endsection
