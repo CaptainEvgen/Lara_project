@@ -55,7 +55,7 @@
                         @if($orders->where('user_id', $order->user->id)
                         ->where('restaurant_id', Auth::user()->restaurant_id)
                         ->where('cancel_reservation' , true)
-                        ->count() > 5)
+                        ->count() >= 5)
                             <i class="fas fa-exclamation"></i>
                         @endif</td>
                         <td>{{$order->date}}</td>
