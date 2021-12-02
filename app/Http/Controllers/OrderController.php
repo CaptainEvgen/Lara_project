@@ -44,8 +44,9 @@ class OrderController extends Controller
         ->first();
         $order->confirm_admin = true;
         $order->save();
-
-        //return redirect()->route('restaurantOrders',['id' => Auth::user()->restaurant_id])->with('message', 'Вы приняли заказ № '.$id);
+        $orderNew = Order::where('id', $id)->first();
+        $changed_at = $orderNew->updated_at;
+        return response()->json($changed_at);
     }
     public function canсelOrder($id){
         $order = Order::where('id', $id)

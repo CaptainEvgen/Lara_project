@@ -84,8 +84,7 @@
         <div class="restaurant-preview">
             @foreach ($res as $re)
                 <div class="preview-block">
-                    <img src="{{asset('/images/firewatterimg.png')}}" class="preview-block__image">
-                    {{-- если есть картинка, то {{$re->photo}} --}}
+                    <img src="{{asset('images/firewatterimg.png')}}" class="preview-block__image">
                     <div class="preview-block__info">
                         <div class="preview-block__info-name">{{$re->name}}</div>
                         <div class="preview-block__info-description">we are all about we are all about to the fullest and all content dining out or in!dining out or in!</div>
@@ -345,7 +344,8 @@
         let iMessage = document.querySelector('.search-list');
         let iUrl = "{{route('search')}}";
         let input = document.querySelector('.search-block__input');
-        fetchSearchInput(input, iUrl, iMessage);
+        let token = '{{csrf_token()}}';
+        fetchSearchInput(input, iUrl, iMessage, token);
 
         let eMessage = document.querySelector('.email-message');
         let eForm = document.querySelector('#emailForm');

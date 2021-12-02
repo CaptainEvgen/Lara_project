@@ -8,8 +8,26 @@
       <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
       <link rel="stylesheet" href="{{asset('/css/main.css')}}"/>
       <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+
     </head>
     <body>
+        @if(Session::has('message'))
+            <div class="message-wrapper">
+                <div class="message-block alert-info">
+                    <div class="message-block__button"><i class="far fa-times-circle"></i></div>
+                    <div class="message-block__text">{{ Session::get('message') }}</div>
+                </div>
+            </div>
+        @endif
+
+        <div class="message-wrapper hidden">
+            <div class="message-block alert-info">
+                <div class="message-block__button"><i class="far fa-times-circle"></i></div>
+                <div class="message-block__text"></div>
+            </div>
+        </div>
+
         <div class="main-container">
             <header class="header">
                 @auth
@@ -43,9 +61,6 @@
                 </div>
                 @endauth
                 <div class="container">
-                    @if(Session::has('message'))
-                        <p class="alert alert-info">{{ Session::get('message') }}</p>
-                    @endif
                     <div class="row">
                     <div class="col-4 col-lg-2">
                         <a href="{{route('homepage')}}">
@@ -89,19 +104,19 @@
                             </div>
                             <div class="burger-menu"><img src="{{asset('images/burger-menu.png')}}" alt=""></div>
                         @else
-                            <div class="user-panel__icon p-0">
-                                <a href="{{route('login')}}"><img src="https://img.icons8.com/ios/50/000000/login-rounded-right--v1.png"/></a>
+                            <div class="user-panel visibility">
+                                <div class="user-panel__icon p-0">
+                                    <a href="{{route('login')}}"><img src="{{asset('images/login-icon.png')}}"/></a>
+                                </div>
                             </div>
                         @endif
                     </div>
                     </div>
                 </div>
             </header>
-
             <section class="main">
                 @yield('main')
             </section>
-
             @yield('footer')
 
         </div>
@@ -136,124 +151,13 @@
                 })
             }
 
-            function fetchSearchForm(form, url, message){
-    f.addEventListener('submit',function(event){
-        event.preventDefault();
+            let messageButton = document.querySelector('.message-block__button');
+            let messageText = document.querySelector('.message-block__text');
 
-        let formData = new FormData(form);
-        let fetchData = {
-            method: 'post',
-            body: formData,
-            headers: {
-                "Accept":"application/json"
-            },
-        }
-        fetch(url, fetchData)
-            .then(
-                response => {
-                    return response.json();
-                }
-            )
-            .then(
-                json => {
-                    message.innerHTML = '';
-                    for(let obj of json){
-                        let route;
-                        let id = obj['id'];
-                        let name = obj['name'];
-                        if(obj['location_name']){
-                            route = '/restaurant/';
-                        } else {
-                            route = '/product/getOne/';
-                        }
-                        message.innerHTML +=('<div class="search-list__item"><a href="'+ route + id + '">'+ name +'</a></div>');
-                    }
-                }
-            )
-    });
-}
-
-function fetchSearchInput(input, url, mes){
-    input.addEventListener('input',function(){
-        let token = '{{csrf_token()}}';
-        let name = input.value;
-        let formData = new FormData();
-        formData.append('text', name);
-        formData.append('_token', token);
-        if(name.length > 0){
-            fetch(url, {
-                method: 'post',
-                body: formData,
-                headers: {
-                    "Accept":"application/json"
-                },
+            messageButton.addEventListener('click', ()=>{
+                messageText.innerHTML = '';
+                document.querySelector('.message-wrapper').classList.add('hidden');
             })
-                .then(
-                    response => {
-                        return response.json();
-                    }
-                )
-                .then(
-                    json => {
-                        mes.innerHTML = '';
-                        for(let obj of json){
-                            let route;
-                            let id = obj['id'];
-                            let name = obj['name'];
-                            if(obj['location_name']){
-                                route = '/restaurant/';
-                            } else {
-                                route = '/product/getOne/';
-                            }
-                            mes.innerHTML +=('<div class="search-list__item"><a href="'+ route + id + '">'+ name +'</a></div>');
-                        }
-                    }
-                )
-            } else {
-                mes.innerHTML = '';
-            }
-    });
-}
-
-function fetchSendForm(form, url, message, text = ''){
-    form.addEventListener('submit',function(event){
-        event.preventDefault();
-
-        let formData = new FormData(form);
-        let fetchData = {
-            method: 'POST',
-            body: formData,
-            headers: {
-                "Accept":"application/json"
-            },
-        }
-
-        fetch(url, fetchData)
-            .then(
-                response => {
-                    if(!response.ok){
-                        response.json()
-                            .then(
-                                result => {
-                                    let errors = result.errors;
-                                    for (let err in errors){
-                                        message.classList.add('alert');
-                                        message.classList.add('alert-danger');
-                                        message.innerHTML = errors[err];
-                                    }
-                                }
-                            )
-                    }else{
-                        message.classList.add('alert');
-                        message.classList.remove('alert-danger');
-                        message.classList.add('alert-success');
-                        message.innerHTML = text;
-                    }
-                },
-            )
-    });
-}
-
         </script>
         @yield('script')
 

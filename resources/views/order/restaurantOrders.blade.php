@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <h1>Заказы ресторана {{Auth::user()->restaurant->name}}</h1>
+    <h1>Заказы </h1>
     @if ($orders)
         <table id="datatablesSimple">
             <thead>
@@ -62,10 +62,14 @@
                         <td>{{$order->time}}</td>
                         <td>{{$order->guests}}</td>
                         <td>
-                            @if ($order->confirm_admin)
-                                Принят ({{$order->updated_at}})
+                            @if ($order->cancel_reservation)
+                                Отменен ({{$order->updated_at}})
                             @else
-                                <a class="buttonConfirm" data-id="{{$order->id}}">Не обработан</a>
+                                @if ($order->confirm_admin)
+                                    Принят ({{$order->updated_at}})
+                                @else
+                                    <a class="buttonConfirm" data-id="{{$order->id}}">Не обработан</a>
+                                @endif
                             @endif
                         </td>
                     </tr>
@@ -78,15 +82,27 @@
 @section('script')
     <script>
 
-        let text = 'Заказ принят';
+        let text = 'Принят';
         document.addEventListener('click', function (e) {
             if (e.target.classList.contains('buttonConfirm')) {
                 let id = e.target.dataset.id;
                 let url = '/manager/confirm/' + id;
+                let parentN = e.target.parentNode;
                 fetch(url)
                     .then(
                         response => {
-                            e.target.innerHTML = text;
+                            console.log(e.target.parentNode.parentNode);
+                            e.target.parentNode.parentNode.classList.remove('pending');
+                            e.target.parentNode.parentNode.classList.add('confirmed');
+                            parentN.innerHTML = text;
+                            return response.json();
+                        }
+                    )
+                    .then(
+                        json => {
+                            let data = new Date(json).toLocaleString('en-US');
+
+                            parentN.innerHTML += '('+ data+')';
                         }
                     );
             }

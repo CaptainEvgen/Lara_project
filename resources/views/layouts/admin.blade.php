@@ -14,7 +14,14 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
-
+        @if(Session::has('message'))
+            <div class="message-wrapper">
+                <div class="message-block alert-info">
+                    <div class="message-block__button"><i class="far fa-times-circle"></i></div>
+                    <div class="message-block__text">{{ Session::get('message') }}</div>
+                </div>
+            </div>
+        @endif
         @section('navigation')
             <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
                 <!-- Navbar Brand-->
@@ -90,9 +97,7 @@
 
             <div id="layoutSidenav_content">
                 <main>
-                    @if(Session::has('message'))
-                        <p class="alert alert-info">{{ Session::get('message') }}</p>
-                    @endif
+
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">{{Auth::user()->restaurant->name}}</h1>
                         <ol class="breadcrumb mb-4">
@@ -122,6 +127,15 @@
         <script src="{{asset('js/datatables-simple-demo.js')}}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script>
+        let messageButton = document.querySelector('.message-block__button');
+        let messageText = document.querySelector('.message-block__text');
+
+        messageButton.addEventListener('click', ()=>{
+            messageText.innerHTML = '';
+            document.querySelector('.message-wrapper').classList.add('hidden');
+        })
+        </script>
         @yield('script')
     </body>
 </html>

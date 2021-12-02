@@ -1,4 +1,4 @@
-function fetchSearchForm(form, url, message){
+function fetchSearchForm(form, url, message, token){
     f.addEventListener('submit',function(event){
         event.preventDefault();
 
@@ -37,7 +37,6 @@ function fetchSearchForm(form, url, message){
 
 function fetchSearchInput(input, url, mes){
     input.addEventListener('input',function(){
-        let token = '{{csrf_token()}}';
         let name = input.value;
         let formData = new FormData();
         formData.append('text', name);
@@ -57,6 +56,7 @@ function fetchSearchInput(input, url, mes){
                 )
                 .then(
                     json => {
+                        console.log(json);
                         mes.innerHTML = '';
                         for(let obj of json){
                             let route;
@@ -107,10 +107,10 @@ function fetchSendForm(form, url, message, text = ''){
                                 }
                             )
                     }else{
-                        message.classList.add('alert');
-                        message.classList.remove('alert-danger');
-                        message.classList.add('alert-success');
-                        message.innerHTML = text;
+                        let messageText = document.querySelector('.message-block__text');
+                        messageText.parentNode.classList.add('alert-success');
+                        messageText.parentNode.parentNode.classList.remove('hidden');
+                        messageText.innerHTML = text;
                     }
                 },
             )
