@@ -12581,7 +12581,7 @@ h5,
 }
 
 .visibility {
-  visibility: visible;
+  display: block;
 }
 
 .burger-menu {
@@ -12687,11 +12687,7 @@ h5,
   }
 
   .user-panel {
-    visibility: hidden;
-  }
-
-  .visibility {
-    visibility: visible;
+    display: none;
   }
 
   .burger-menu {
