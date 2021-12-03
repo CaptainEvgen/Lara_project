@@ -12690,6 +12690,10 @@ h5,
     display: none;
   }
 
+  .visibility {
+    display: block;
+  }
+
   .burger-menu {
     visibility: visible;
     margin-top: 60px;
