@@ -10,23 +10,29 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         if(Auth::check()){
             return redirect(route('homepage'))->with('message', 'Вы уже аутентифицированы');
         }
         $data = $request->only('telephone_number', 'password');
+
         if(Auth::attempt($data)){
             return redirect(route('homepage'))->with('message', Auth::user()->first_name.', вы успешно аутентифицированы!');
         }
+
         return view('user.login');
     }
 
-    public function logout(){
+    public function logout()
+    {
         Auth::logout();
+
         return redirect(route('homepage'))->with('message', 'Вы успешно вышли из профиля');
     }
 
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         if ($request->isMethod('post')){
             $data=$request->validate([
                 'password' => 'required|min:8',
@@ -35,6 +41,7 @@ class UserController extends Controller
                 'last_name'=> 'max:60|string|nullable',
                 'telephone_number'=> 'required|max:60|unique:users',
             ]);
+
             $user = new User;
             if($data['password'] === $data['password_confirm']){
                 $user->password = Hash::make($data['password']);
@@ -62,9 +69,5 @@ class UserController extends Controller
             return redirect(route('login'))->with('message', 'Вы успешно зарегестрированы!');
         }
         return view('user.register');
-    }
-    public function update(Request $request){
-
-        return view('user.update');
     }
 }

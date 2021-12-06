@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 
 class RestaurantController extends Controller
 {
-    public function getAllRestaurants(){
+    public function getAllRestaurants()
+    {
         $restaurants = Restaurant::all();
+
         return view('restaurant.getAllRestaurants',[
             'restaurants' => $restaurants,
         ]);

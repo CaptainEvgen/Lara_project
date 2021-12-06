@@ -15,8 +15,10 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('restaurant_id');
-            $table->integer('user_id');
+                //$table->integer('restaurant_id');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants');
+                //$table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->date('date');
             $table->time('time');
             $table->integer('guests')->default(2);

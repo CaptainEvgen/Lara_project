@@ -19,7 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('description');
             $table->integer('price');
             $table->string('photo');
-            $table->integer('restaurant_id');
+                //$table->integer('restaurant_id');
+            $table->foreign('restaurant_id')->references('id')->on('restaurants');
             $table->timestamps();
         });
     }

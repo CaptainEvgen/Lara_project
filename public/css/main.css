@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap);
 @charset "UTF-8";
 /*!
  * Bootstrap v5.1.3 (https://getbootstrap.com/)
@@ -12799,6 +12800,7 @@ h5,
 }
 .networks-block__item {
   margin-right: 30px;
+  display: block;
 }
 .networks-block__item:hover {
   opacity: 0.8;
@@ -12882,6 +12884,7 @@ h5,
 }
 
 .networks__item {
+  display: block;
   margin-right: 30px;
 }
 .networks__item:hover {
@@ -13363,7 +13366,6 @@ h5,
   }
 }
 .top-restaurants {
-  height: 1200px;
   padding-top: 20px;
 }
 
@@ -13385,6 +13387,13 @@ h5,
 }
 .main-para__text-block {
   margin: auto 10px;
+}
+
+.main-para::before {
+  content: "";
+  height: 100%;
+  width: 25px;
+  background-color: #FE043C;
 }
 
 .second-para {
@@ -13750,7 +13759,6 @@ h5,
 }
 .services {
   margin-top: 145px;
-  max-height: 1500px;
 }
 .services-block {
   background: url("../images/servicesBcg.png");
@@ -13785,7 +13793,7 @@ h5,
 
 .services-block__main-block {
   text-align: center;
-  padding: 11% 0;
+  padding: 20% 0;
 }
 
 .main__text-block {
@@ -13824,17 +13832,30 @@ h5,
 
 .services-block__arrow1 {
   position: absolute;
-  left: 485px;
+  left: 435px;
   top: 175px;
 }
 
 .services-block__arrow2 {
   position: absolute;
   transform: rotate(180deg);
-  right: 485px;
+  right: 435px;
   top: 175px;
 }
 
+@media only screen and (max-width: 1919px) {
+  .services-block__arrow1 {
+    width: 140px;
+    left: 350px;
+    top: 175px;
+  }
+
+  .services-block__arrow2 {
+    width: 140px;
+    right: 350px;
+    top: 175px;
+  }
+}
 @media only screen and (max-width: 1750px) {
   .services-block {
     padding: 90px 45px;
@@ -13851,26 +13872,24 @@ h5,
   }
 
   .services-block__arrow1 {
-    width: 160px;
-    left: 415px;
+    left: 330px;
     top: 145px;
   }
 
   .services-block__arrow2 {
-    width: 160px;
-    right: 415px;
+    right: 330px;
     top: 145px;
   }
 }
 @media only screen and (max-width: 1600px) {
   .services-block__arrow1 {
     width: 130px;
-    left: 380px;
+    left: 330px;
   }
 
   .services-block__arrow2 {
     width: 130px;
-    right: 380px;
+    right: 330px;
   }
 
   .red-line {
@@ -13903,13 +13922,13 @@ h5,
 
   .services-block__arrow1 {
     width: 100px;
-    left: 300px;
+    left: 270px;
     top: 125px;
   }
 
   .services-block__arrow2 {
     width: 100px;
-    right: 300px;
+    right: 270px;
     top: 125px;
   }
 }
@@ -13919,11 +13938,13 @@ h5,
   }
 
   .services-block__arrow1 {
-    left: 260px;
+    width: 60px;
+    left: 245px;
   }
 
   .services-block__arrow2 {
-    right: 260px;
+    width: 60px;
+    right: 245px;
   }
 }
 @media only screen and (max-width: 1150px) {
@@ -13938,22 +13959,24 @@ h5,
 }
 @media only screen and (max-width: 991px) {
   .services-block__arrow1 {
-    left: 370px;
+    width: 100px;
+    left: 300px;
   }
 
   .services-block__arrow2 {
-    right: 370px;
+    width: 100px;
+    right: 300px;
   }
 }
 @media only screen and (max-width: 767px) {
   .services-block__arrow1 {
-    left: 300px;
-    width: 75px;
+    left: 240px;
+    width: 60px;
   }
 
   .services-block__arrow2 {
-    right: 300px;
-    width: 75px;
+    right: 240px;
+    width: 60px;
   }
 
   .main-para__text-block {
@@ -13962,15 +13985,12 @@ h5,
 }
 @media only screen and (max-width: 650px) {
   .services-block__arrow1 {
-    left: 270px;
+    left: 230px;
   }
 
   .services-block__arrow2 {
-    right: 270px;
+    right: 230px;
   }
-}
-.showcase {
-  min-height: 1500px;
 }
 .showcase__scroll {
   margin-top: 50px;
@@ -14111,6 +14131,7 @@ body {
   font-family: Poppins;
   font-size: 14px;
   color: #2E266F;
+  background: #FFF5EC;
 }
 
 .body--disable {
@@ -14133,10 +14154,7 @@ a:hover {
 }
 
 .main-container {
-  max-width: 1920px;
-  margin: 0 auto;
   position: relative;
-  background: #FFF5EC;
 }
 
 .hide {

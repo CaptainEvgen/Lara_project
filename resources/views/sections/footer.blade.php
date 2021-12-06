@@ -1,25 +1,17 @@
 @section('footer')
     <footer class="sec_footer">
         <div class="sec_footer__networks">
-            <a href="#">
-            <div class="networks__item">
+            <a href="#" class="networks__item">
                 <img src="{{asset("images/Facebook.png")}}" alt="">
-            </div>
             </a>
-            <a href="#">
-            <div class="networks__item">
+            <a href="#" class="networks__item">
                 <img src="{{asset('images/Twitter.png')}}" alt="">
-            </div>
             </a>
-            <a href="#">
-            <div class="networks__item">
+            <a href="#" class="networks__item">
                 <img src="{{asset("images/Linkedin.png")}}" alt="">
-            </div>
             </a>
-            <a href="#">
-            <div class="networks__item">
+            <a href="#" class="networks__item">
                 <img src="{{asset('images/Behance.png')}}" alt="">
-            </div>
             </a>
         </div>
         <div class="sec_footer__anchors">

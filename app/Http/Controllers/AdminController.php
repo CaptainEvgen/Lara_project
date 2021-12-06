@@ -9,20 +9,25 @@ use App\Models\Order;
 
 class AdminController extends Controller
 {
-    public function showHomePage(){
+    public function showHomePage() {
         $orders = Order::where('restaurant_id', Auth::user()->restaurant_id)->get();
         $uniqUsers = Order::where('restaurant_id', Auth::user()->restaurant_id)->distinct()->get(['user_id']);
+
         return view('admin.showHomePage', [
             'orders' => $orders,
             'uniqUsers' => $uniqUsers,
     ]);
     }
-    public function getAllByRestaurant($id){
+
+    public function getAllByRestaurant($id) {
         $products = Product::where('restaurant_id', $id)->get();
+
         return view('admin.getAllByRestaurant', ['products' => $products]);
     }
-    public function getTableByRestaurant($id){
+
+    public function getTableByRestaurant($id) {
         $products = Product::where('restaurant_id', $id)->get();
+
         return view('admin.getTableByRestaurant', ['products' => $products]);
     }
 }
