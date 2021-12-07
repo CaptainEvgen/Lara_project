@@ -1,4 +1,4 @@
-function fetchSearchForm(form, url, message){
+function fetchSearchForm(form, url, message, token){
     f.addEventListener('submit',function(event){
         event.preventDefault();
 
@@ -37,7 +37,6 @@ function fetchSearchForm(form, url, message){
 
 function fetchSearchInput(input, url, mes){
     input.addEventListener('input',function(){
-        let token = '{{csrf_token()}}';
         let name = input.value;
         let formData = new FormData();
         formData.append('text', name);
@@ -93,24 +92,24 @@ function fetchSendForm(form, url, message, text = ''){
         fetch(url, fetchData)
             .then(
                 response => {
-                    console.log(response);
                     if(!response.ok){
                         response.json()
                             .then(
                                 result => {
-                                    let errors = result.errors;
-                                    for (let err in errors){
-                                        message.classList.add('alert');
-                                        message.classList.add('alert-danger');
-                                        message.innerHTML = errors[err];
-                                    }
+                                    let errors = result.error;
+                                    message.classList.add('alert');
+                                    message.classList.add('alert-danger');
+                                    message.innerHTML =errors;
                                 }
                             )
                     }else{
-                        message.classList.add('alert');
+                        message.innerHTML = '';
+                        message.classList.remove('alert');
                         message.classList.remove('alert-danger');
-                        message.classList.add('alert-success');
-                        message.innerHTML = text;
+                        let messageText = document.querySelector('.message-block__text');
+                        messageText.parentNode.classList.add('alert-success');
+                        messageText.parentNode.parentNode.classList.remove('hidden');
+                        messageText.innerHTML = text;
                     }
                 },
             )

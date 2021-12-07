@@ -6,7 +6,7 @@ namespace App\Helpers;
 
 class UploadHelper
 {
-    public function upload_image($file,$path)
+    static public function upload_image($file,$path)
     {
        // $images = array();
 

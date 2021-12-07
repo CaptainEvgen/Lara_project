@@ -2,36 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\UploadHelper;
 use App\Models\Product;
 use App\Models\Restaurant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Services\ProductService;
+use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
-    public function getOneProduct($id)
-    {
-        $product = Product::findOrFail($id);
-        $restaurant =  $product->restaurant;
+    protected $productService;
 
-        return view('product.getOneProduct', [
-            'name' => $product->name,
-            'description' =>$product->description,
-            'price' =>$product->price,
-            'photo' =>$product->photo,
-            'restaurant' =>$restaurant,
-        ]);
+    public function __construct(ProductService $productService){
+        $this->productService = $productService;
     }
 
-    public function getAllProducts()
-    {
-        $products = Product::inRandomOrder()->paginate(9);
 
-        return view('product.getAllProducts', [
-            'products' => $products,
-        ]);
-    }
+    // public function getOneProduct($id)
+    // {
+    //     $product = Product::findOrFail($id);
+    //     $restaurant =  $product->restaurant;
+
+    //     return view('product.getOneProduct', [
+    //         'name' => $product->name,
+    //         'description' =>$product->description,
+    //         'price' =>$product->price,
+    //         'photo' =>$product->photo,
+    //         'restaurant' =>$restaurant,
+    //     ]);
+    // }
+
+    // public function getAllProducts()
+    // {
+    //     $products = Product::inRandomOrder()->paginate(9);
+
+    //     return view('product.getAllProducts', [
+    //         'products' => $products,
+    //     ]);
+    // }
 
     public function getByRestaurant($id)
     {
@@ -44,35 +52,35 @@ class ProductController extends Controller
         ]);
     }
 
-    public function newProduct(Request $request)
-    {
-        if ($request->isMethod('post')){
-            $data = $request->validate([
-                'name' => 'required',
-                'description' => 'string|max:64|nullable',
-                'price'=> 'required|integer',
-                'photo' => 'required|image:jpg, jpeg, png'
-            ]);
+    // public function newProduct(Request $request)
+    // {
+    //     if ($request->isMethod('post')){
+    //         $data = $request->validate([
+    //             'name' => 'required',
+    //             'description' => 'string|max:64|nullable',
+    //             'price'=> 'required|integer',
+    //             'photo' => 'required|image:jpg, jpeg, png'
+    //         ]);
 
-            $product = new Product;
-            $product->restaurant_id = Auth::user()->restaurant_id;
-            $product->name = $data['name'];
-            $product->description = $data['description'];
-            $product->price = $data['price'];
+    //         $product = new Product;
+    //         $product->restaurant_id = Auth::user()->restaurant_id;
+    //         $product->name = $data['name'];
+    //         $product->description = $data['description'];
+    //         $product->price = $data['price'];
 
-            if($request->file('photo')){
-                $photo = $request->file('photo');
-                $photo = UploadHelper::upload_image($photo, 'products');
-                $product->photo =  $photo;
-            };
+    //         if($request->file('photo')){
+    //             $photo = $request->file('photo');
+    //             $photo = UploadHelper::upload_image($photo, 'products');
+    //             $product->photo =  $photo;
+    //         };
 
-            $product->save();
+    //         $product->save();
 
-            return redirect('newProduct')->with('message', 'Данные отправлены');
-        }
+    //         return redirect('newProduct')->with('message', 'Данные отправлены');
+    //     }
 
-        return view('product.newProduct');
-    }
+    //     return view('product.newProduct');
+    // }
 
     public function deleteProduct($id)
     {
@@ -84,25 +92,125 @@ class ProductController extends Controller
         return redirect()->route('getAllByRestaurant',['id' => Auth::user()->restaurant_id])->with('message', 'Your product '.$name.' has been successfully deleted.');
     }
 
-    public function updateProduct(Request $request, $id = null )
+    // public function updateProduct(Request $request, $id = null )
+    // {
+    //     $product = Product::findOrFail($id);
+    //     if ($request->has('submit')) {
+    //         $data = $request->all();
+    //         $product->name = $data['name'];
+    //         $product->description = $data['description'];
+    //         $product->price = $data['price'];
+
+    //         if($request->file('photo')){
+    //             $photo = $request->file('photo');
+    //             $photo = UploadHelper::upload_image($photo, 'products');
+    //             unlink(public_path($product->photo));
+    //             $product->photo = $photo;
+    //         };
+    //         $product->save();
+
+    //         return redirect()->route('getAllByRestaurant',['id' => Auth::user()->restaurant_id])->with('message', 'Your product '.$data['name'].' has been successfully updated.');
+    //     }
+    //     return view('product.updateProduct', [
+    //         'id' => $id,
+    //         'name' => $product->name,
+    //         'description' => $product->description,
+    //         'price' => $product->price,
+    //         'photo' => $product->photo,
+    //     ]);
+    // }
+
+
+
+// ____________________________
+
+
+
+  /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $product = Product::findOrFail($id);
-        if ($request->has('submit')) {
-            $data = $request->all();
-            $product->name = $data['name'];
-            $product->description = $data['description'];
-            $product->price = $data['price'];
 
-            if($request->file('photo')){
-                $photo = $request->file('photo');
-                $photo = UploadHelper::upload_image($photo, 'products');
-                unlink(public_path($product->photo));
-                $product->photo = $photo;
-            };
-            $product->save();
+    }
+ /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function randomIndexPaginate()
+    {
+        $products = $this->productService->getRandomProduct(50);
 
-            return redirect()->route('getAllByRestaurant',['id' => Auth::user()->restaurant_id])->with('message', 'Your product '.$data['name'].' has been successfully updated.');
+        return view('product.getAllProducts', [
+            'products' => $products,
+        ]);
+    }
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('product.newProduct');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $data = $request->all();
+
+        $result['status'] = 200;
+
+        try {
+            $result['data'] = $this->productService->saveProductData($data);
+        } catch (ValidationException $e) {
+            $result = [
+                'status' => 500,
+                'message' =>$e->getMessage(),
+                'errors' =>$e->errors(),
+
+            ];
         }
+        return response()->json($result, $result['status']);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $product = $this->productService->getOneById($id);
+        $restaurant =  $product->restaurant;
+
+        return view('product.getOneProduct', [
+            'name' => $product->name,
+            'description' =>$product->description,
+            'price' =>$product->price,
+            'photo' =>$product->photo,
+            'restaurant' =>$restaurant,
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $product = $this->productService->getOneById($id);
         return view('product.updateProduct', [
             'id' => $id,
             'name' => $product->name,
@@ -111,4 +219,51 @@ class ProductController extends Controller
             'photo' => $product->photo,
         ]);
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+
+        $result['status'] = 200;
+
+        try {
+            $result['data'] = $this->productService->updateProductData($data, $id);
+
+        } catch (ValidationException $e) {
+            $result = [
+                'status' => 500,
+                'message' =>$e->getMessage(),
+                'errors' =>$e->errors(),
+            ];
+        }
+        return response()->json($result, $result['status']);
+
+
+
+            // return redirect()->route('getAllByRestaurant',['id' => Auth::user()->restaurant_id])->with('message', 'Your product '.$data['name'].' has been successfully updated.');
+
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Product $product
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Product $product)
+    {
+        //
+    }
+
+
+
+
+
+
 }

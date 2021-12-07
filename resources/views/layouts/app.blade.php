@@ -55,7 +55,7 @@
                     </div>
                     </div>
                     <div class="sidebar__item"><a href="{{route('getAllRestaurants')}}">Рестораны</a></div>
-                    <div class="sidebar__item"><a href="{{route('getAllProducts')}}">Все блюда</a></div>
+                    <div class="sidebar__item"><a href="{{route('product.getAllProducts')}}">Все блюда</a></div>
                     <div class="sidebar__item"><a href="{{route('userOrders', ['id' => Auth::user()->id])}}">История заказов</a></div>
                     <div class="sidebar__item"><a href="#">Свободный слот</a></div>
                 </div>
@@ -72,7 +72,7 @@
                     <div class="col-6 col-sm-7 col-lg-4 offset-lg-1">
                         <div class=" menu">
                             <div class="menu__item"><a href="{{route('getAllRestaurants')}}">Рестораны</a></div>
-                            <div class="menu__item"><a href="{{route('getAllProducts')}}">Все блюда</a></div>
+                            <div class="menu__item"><a href="{{route('product.getAllProducts')}}">Все блюда</a></div>
                             @auth
                                 <div class="menu__item"><a href="{{route('userOrders', ['id' => Auth::user()->id])}}">История заказов</a></div>
                             @endauth

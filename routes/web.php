@@ -23,9 +23,9 @@ use App\Http\Controllers\RestaurantController;
 Route::get('/', [HomeController::class,'showHomePage'])->name('homepage');
 Route::match(['get', 'post'],'/login', [UserController::class,'login'])->name('login');
 Route::match(['get', 'post'],'/register', [UserController::class,'register'])->name('register');
-Route::get('/product/getOne/{id}', [ProductController::class,'getOneProduct'])->where(['id' => '[\d]+'])->name('getOneProduct');
+Route::get('/product/getOne/{id}', [ProductController::class,'show'])->where(['id' => '[\d]+'])->name('getOneProduct');
 Route::get('/restaurant/{id}', [ProductController::class,'getByRestaurant'])->where(['id' => '[\d]+'])->name('byRestaurant');
-Route::get('/products/all', [ProductController::class,'getAllProducts'])->name('getAllProducts');// по всем ресторанам
+// Route::get('/products/all', [ProductController::class,'getAllProducts'])->name('getAllProducts');// по всем ресторанам
 Route::get('/restaurants', [RestaurantController::class,'getAllRestaurants'])-> name('getAllRestaurants');
 Route::post('/search', [HomeController::class,'search'])-> name('search');
 
@@ -42,15 +42,22 @@ Route::middleware('auth')->group(function(){
 
     Route::middleware('role:manager')->group(function(){
         Route::get('/manager', [AdminController::class,'showHomePage'])->name('manager');
-        Route::match(['get', 'post'],'/newProduct', [ProductController::class,'newProduct'])->name('newProduct');
+       // Route::match(['get', 'post'],'/newProduct', [ProductController::class,'newProduct'])->name('newProduct');
         Route::match(['get', 'post'],'/manager/allOrders/{id}', [OrderController::class,'restaurantOrders'])->name('restaurantOrders');
 
         Route::get('/manager/product/getAll/{id}', [AdminController::class,'getAllByRestaurant'])->where(['id' => '[\d]+'])->name('getAllByRestaurant');// по выбранному ресторанам с превью
         Route::get('/manager/product/getTable/{id}', [AdminController::class,'getTableByRestaurant'])->where(['id' => '[\d]+'])->name('getTableByRestaurant');// по выбранному ресторанам таблицой
         Route::get('/manager/delete/{id}', [ProductController::class,'deleteProduct'])->where(['id' => '[\d]+'])->name('deleteProduct');
-        Route::match(['get', 'post'],'manager/update/{id?}', [ProductController::class,'updateProduct'])->where(['id' => '[\d]+'])->name('updateProduct');
+        // Route::match(['get', 'post'],'manager/update/{id?}', [ProductController::class,'updateProduct'])->where(['id' => '[\d]+'])->name('updateProduct');
         Route::get('/manager/confirm/{id}', [OrderController::class,'confirmOrder'])->where(['id' => '[\d]+'])->name('confirmOrder');
     });
 
 });
-
+Route::name('product.')->group(function(){
+    // Route::get('/create-product', [ProductController::class,'create'])->name('create');
+    // Route::post('/store-product', [ProductController::class,'store'])->name('store');
+    Route::get('/products/all', [ProductController::class,'randomIndexPaginate'])->name('getAllProducts');// по всем ресторанам
+    // Route::get('manager/edit/{id?}', [ProductController::class,'edit'])->where(['id' => '[\d]+'])->name('edit');
+    // Route::post('manager/update/{id?}', [ProductController::class,'update'])->where(['id' => '[\d]+'])->name('update');
+});
+Route::resource('product',ProductController::class);

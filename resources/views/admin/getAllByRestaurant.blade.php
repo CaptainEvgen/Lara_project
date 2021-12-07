@@ -26,7 +26,7 @@
                     </tr>
                     <tr>
                         <td><a href="{{route('deleteProduct',['id' => $product->id])}}">Удалить</a></td>
-                        <td><a href="{{route('updateProduct',['id' => $product->id])}}">Редактировать</a></td>
+                        <td><a href="{{route('product.edit',['product' => $product->id])}}">Редактировать</a></td>
                     </tr>
                 </table>
             </div>

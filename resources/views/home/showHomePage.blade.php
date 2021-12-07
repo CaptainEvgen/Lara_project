@@ -122,9 +122,6 @@
                     advance booking
                 </div>
             </div>
-            {{-- @if ($errors->any())
-                    <h4 class="validation-fail"> {{$errors->first()}}</h4>
-                @endif --}}
             <div class="fetch">
             </div>
             <form action="{{ route('makeOrder') }}" method="post" id="orderForm">

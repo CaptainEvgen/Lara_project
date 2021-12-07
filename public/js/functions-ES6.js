@@ -80,7 +80,9 @@ function fetchSearchInput(input, url, mes){
 function fetchSendForm(form, url, message, text = ''){
     form.addEventListener('submit',function(event){
         event.preventDefault();
-
+        let button = form.querySelector('[type = "submit"]');
+        button.setAttribute('disabled', 'disabled');
+        console.log(button);
         let formData = new FormData(form);
         let fetchData = {
             method: 'POST',
@@ -93,7 +95,6 @@ function fetchSendForm(form, url, message, text = ''){
         fetch(url, fetchData)
             .then(
                 response => {
-                    console.log(response);
                     if(!response.ok){
                         response.json()
                             .then(
@@ -107,12 +108,18 @@ function fetchSendForm(form, url, message, text = ''){
                                 }
                             )
                     }else{
+
+                        message.innerHTML = '';
+                        message.classList.remove('alert');
+                        message.classList.remove('alert-danger');
                         let messageText = document.querySelector('.message-block__text');
                         messageText.parentNode.classList.add('alert-success');
                         messageText.parentNode.parentNode.classList.remove('hidden');
                         messageText.innerHTML = text;
                     }
+                    button.removeAttribute('disabled');
                 },
+
             )
     });
 }
