@@ -4,35 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Http\Services\OrderService;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+
 
 class OrderController extends Controller
 {
+    protected $orderService;
+
+    public function __construct(OrderService $orderService){
+        $this->orderService = $orderService;
+    }
+
     public function makeOrder(Request $request)
     {
-        $data = $request->validate([
-            'restaurant' => 'required',
-            'time' => 'nullable',
-            'date' => 'date|required|after:today',
-            'guests' => 'integer|max:100|min:1',
-        ]);
+        $data = $request->all();
 
-        $order = new Order();
-        $order->user_id = Auth::user()->id;
-        $order->restaurant_id = $data['restaurant'];
-        $order->time = $data['time'];
-        $order->date = $data['date'];
-        $order->guests = $data['guests'];
-        $order->save();
+        $result['status'] = 200;
 
-        // return redirect()->route('homepage')->with('message', 'Ваш заказ принят. Дождитесь подтверждения от администратора ресторана.');
-        return response()->json();//?
+        try {
+            $result['data'] = $this->orderService->saveOrder($data);
+        } catch (ValidationException $e) {
+            $result = [
+                'status' => 500,
+                'message' =>$e->getMessage(),
+                'errors' =>$e->errors(),
+            ];
+        }
+
+        return response()->json($result, $result['status']);
     }
 
     public function userOrders($id)
     {
-        $orders = Order::where('user_id', $id)
-            ->get();
+        $orders = $this->orderService->getAllByParam('user_id', $id);
 
         return view('order.userOrders', [
             'orders' => $orders,
@@ -41,8 +47,7 @@ class OrderController extends Controller
 
     public function restaurantOrders($id)
     {
-        $orders = Order::where('restaurant_id', $id)
-        ->get();
+        $orders = $this->orderService->getAllByParam('restaurant_id', $id);
 
         return view('order.restaurantOrders', [
             'orders' => $orders,

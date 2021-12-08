@@ -2,11 +2,6 @@
 
 namespace App\Http\Services;
 
-
-use Exception;
-use InvalidArgumentException;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Repositories\ProductRepository;
 
