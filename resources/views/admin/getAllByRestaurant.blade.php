@@ -22,11 +22,18 @@
                     </tr>
                     <tr>
                         <td>Изображение</td>
-                        <td>{{$product->photo}}</td>
+                        <td><img class="table-image" src="{{asset($product->photo)}}" alt=""> </td>
                     </tr>
                     <tr>
-                        <td><a href="{{route('deleteProduct',['id' => $product->id])}}">Удалить</a></td>
-                        <td><a href="{{route('product.edit',['product' => $product->id])}}">Редактировать</a></td>
+                        <td>
+                            {{-- <a href="{{route('deleteProduct',['id' => $product->id])}}">Удалить</a> --}}
+                            <button class="delete-button" data-href={{route('deleteProduct',['id' => $product->id])}}>Удалить <i class="fas fa-trash"></i> </button>
+                        </td>
+                        <td><a href="{{route('product.edit',['product' => $product->id])}}">
+                            <button>
+                                Редактировать <i class="fas fa-edit"></i>
+                            </button>
+                        </a></td>
                     </tr>
                 </table>
             </div>
@@ -43,12 +50,19 @@
                 </div>
             </div>
         </div>
-
-
-
-
-
     @endforeach
 </div>
+
+@endsection
+
+@section('script')
+
+    <script>
+        let deleteButtons = document.querySelectorAll('.delete-button');
+
+        for(let deleteButton of deleteButtons){
+            fetchDeleteButton(deleteButton);
+        }
+    </script>
 
 @endsection

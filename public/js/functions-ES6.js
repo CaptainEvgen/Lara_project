@@ -123,3 +123,21 @@ function fetchSendForm(form, url, message, text = ''){
             )
     });
 }
+
+function fetchDeleteButton(button, text = 'Удаление прошло успешно'){
+    let url = button.dataset.href;
+
+    button.addEventListener('click', function(){
+        console.log('in');
+        button.setAttribute('disabled', 'disabled');
+        fetch(url)
+           .then(
+                response => {
+                    button.innerHTML = 'Удалено';
+                    let messageText = document.querySelector('.message-block__text');
+                    messageText.parentNode.classList.add('alert-success');
+                    messageText.parentNode.parentNode.classList.remove('hidden');
+                    messageText.innerHTML = text;
+                })
+    })
+}

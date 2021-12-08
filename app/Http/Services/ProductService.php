@@ -26,9 +26,7 @@ class ProductService
             'photo' => 'required|image:jpg, jpeg, png'
         ])->validate();
 
-        $result = $this->productRepository->save($validated);
-
-        return $result;
+        return $this->productRepository->save($validated);
     }
 
     public function updateProductData($data, $id)
@@ -39,23 +37,7 @@ class ProductService
             'photo' => 'image:jpg, jpeg, png'
         ]);
 
-        if ($validated->fails()) {
-            throw new InvalidArgumentException($validated->errors()->first());
-        }
-
-        DB::beginTransaction();
-
-        try{
-            $product = $this->productRepository->update($data, $id);
-        } catch (Exception $e) {
-            DB::rollBack();
-            Log::info($e->getMessage());
-
-        }
-
-        DB::commit();
-
-        return $product;
+        return $this->productRepository->update($data, $id);
     }
 
     public function getRandomProduct($paginate = 100)
@@ -66,5 +48,10 @@ class ProductService
     public function getOneById($id)
     {
         return $this->productRepository->getOne($id);
+    }
+
+    public function deleteById($id)
+    {
+        return $this->productRepository->delete($id);
     }
 }

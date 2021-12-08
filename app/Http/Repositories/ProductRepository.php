@@ -37,8 +37,7 @@ class ProductRepository
             $product->name = $data['name'];
             $product->description = $data['description'];
             $product->price = $data['price'];
-
-        if($data['photo']){
+        if(isset($data['photo'])){
             $photo = $data['photo'];
             $photo = UploadHelper::upload_image($photo, 'products');
             unlink(public_path($product->photo));
@@ -57,5 +56,14 @@ class ProductRepository
     public function getOne($id)
     {
         return Product::findOrFail($id);
+    }
+
+    public function delete($id)
+    {
+        $product = $this->product->findOrFail($id);
+        unlink(public_path($product->photo));
+        $product->delete();
+
+        return $product;
     }
 }

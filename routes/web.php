@@ -60,4 +60,5 @@ Route::name('product.')->group(function(){
     // Route::get('manager/edit/{id?}', [ProductController::class,'edit'])->where(['id' => '[\d]+'])->name('edit');
     // Route::post('manager/update/{id?}', [ProductController::class,'update'])->where(['id' => '[\d]+'])->name('update');
 });
-Route::resource('product',ProductController::class);
+Route::resource('product',ProductController::class, ['expect' => 'show'])->middleware('role:manager');
+
