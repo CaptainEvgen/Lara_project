@@ -28,7 +28,7 @@
                 @foreach ($orders as $order)
                     <tr class="
                     @if ($order->cancel_reservation)
-                        canseled
+                        canceled
                     @else
                         @if ($order->confirm_admin)
                             confirmed
@@ -50,9 +50,10 @@
                         </td>
                         <td>
                             @if (!$order->cancel_reservation)
-                                <a href="{{route('cancelOrder', [ 'id' => $order->id])}}">Отменить</a>
+                                {{-- <a href="{{route('cancelOrder', [ 'id' => $order->id])}}">Отменить</a> --}}
+                                <div class="buttonCancel" data-id="{{$order->id}}">Отменить</div>
                             @else
-                                Отменено
+                               Заказ отменен ({{$order->updated_at}})
                             @endif
                             </td>
                     </tr>
@@ -60,4 +61,36 @@
             </tbody>
         </table>
     </div>
+@endsection
+@section('script')
+    <script>
+
+        let text = 'Отменено';
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('buttonCancel')) {
+                let id = e.target.dataset.id;
+                let url = '/cancel/' + id;
+                let parentN = e.target.parentNode;
+                fetch(url)
+                    .then(
+                        response => {
+                            console.log(e.target.parentNode.parentNode);
+                            e.target.parentNode.parentNode.classList.remove('pending');
+                            e.target.parentNode.parentNode.classList.remove('confirmed');
+                            e.target.parentNode.parentNode.classList.add('canceled');
+                            parentN.innerHTML = text;
+                            return response.json();
+                        }
+                    )
+                    .then(
+                        json => {
+                            let data = new Date(json).toLocaleString('en-US');
+
+                            parentN.innerHTML += '('+ data+')';
+                        }
+                    );
+            }
+        });
+
+    </script>
 @endsection

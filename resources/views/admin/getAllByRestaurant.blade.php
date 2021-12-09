@@ -5,8 +5,8 @@
 <div class="container">
 
     @foreach ($products as $product)
-        <div class="flexbox ">
-            <div>
+        <div class="manager-product-view">
+
                 <table class="block_table">
                     <tr>
                         <td>Название продукта</td>
@@ -36,7 +36,7 @@
                         </a></td>
                     </tr>
                 </table>
-            </div>
+
             <div class="good-block block">
                 <div class="good-block__image-block">
                 <img src="{{asset($product->photo)}}" alt="">

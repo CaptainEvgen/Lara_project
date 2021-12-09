@@ -25,8 +25,18 @@ class OrderService
 
         return $this->orderRepository->save($validated);
     }
+
     public function getAllByParam($param, $value)
     {
         return $this->orderRepository->getAllByParam($param, $value);
+    }
+
+    public function confirmOrder($id)
+    {
+        return $this->orderRepository->confirmOrder($id);
+    }
+    public function cancelOrder($id)
+    {
+        return $this->orderRepository->cancelOrder($id);
     }
 }

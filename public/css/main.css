@@ -12591,7 +12591,7 @@ h5,
 
 .sidebar {
   position: absolute;
-  height: 100vh;
+  height: 98vh;
   width: 100%;
   background: linear-gradient(to right, #FFF5EC 75%, #fe043aa6 25%);
   left: -250%;
@@ -12742,7 +12742,6 @@ h5,
 .footer-secondary-block {
   display: flex;
   justify-content: flex-end;
-  float: right;
 }
 
 .footer-input-block {
@@ -13399,7 +13398,7 @@ h5,
 .second-para {
   line-height: 171%;
   color: #707070;
-  padding: 25px;
+  padding: 25px 0;
 }
 
 .restaurant-preview {
@@ -13542,9 +13541,8 @@ h5,
  * */
 .booking {
   position: relative;
-  height: 1090px;
   background-color: #FFEDDE;
-  padding: 20vh 0;
+  padding: 265px 0;
 }
 .booking-table {
   margin: 0 auto;
@@ -13682,7 +13680,7 @@ h5,
 }
 @media only screen and (max-width: 1195px) {
   .booking {
-    height: 742px;
+    padding: 199px 0 126px 0;
   }
   .booking-table {
     max-width: 720px;
@@ -13700,9 +13698,6 @@ h5,
   }
 }
 @media only screen and (max-width: 991px) {
-  .booking {
-    height: 700px;
-  }
   .booking-table {
     max-width: 720px;
     height: 420px;
@@ -14188,7 +14183,7 @@ a:hover {
   border-color: #badbcc;
 }
 
-.canseled {
+.canceled {
   background-color: #f8d7da;
   border-color: #f5c2c7;
 }
@@ -14244,4 +14239,41 @@ a:hover {
 .table-image {
   max-height: 500px;
   max-width: 500px;
+}
+
+.manager-product-view {
+  display: flex;
+  background-color: #FFF5EC;
+  color: #2E266F;
+  margin: 25px;
+  padding: 10px;
+  border: 3px solid grey;
+  border-radius: 15px;
+  justify-content: space-between;
+}
+.manager-product-view .block_table {
+  width: 50%;
+}
+
+.buttonCancel, .buttonConfirm {
+  border: 0.5px solid grey;
+  border-radius: 5px;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 3px;
+}
+.buttonCancel:hover, .buttonConfirm:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.buttonCancel {
+  background-color: #f8d7da;
+  border-color: #f5c2c7;
+}
+
+.buttonConfirm {
+  background-color: #d1e7dd;
+  border-color: #badbcc;
 }

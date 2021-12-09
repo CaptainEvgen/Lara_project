@@ -33,7 +33,7 @@
                 @foreach ($orders as $order)
                     <tr class="
                     @if ($order->cancel_reservation)
-                        canseled
+                        canceled
                     @else
                         @if ($order->confirm_admin)
                             confirmed
@@ -68,7 +68,7 @@
                                 @if ($order->confirm_admin)
                                     Принят ({{$order->updated_at}})
                                 @else
-                                    <a class="buttonConfirm" data-id="{{$order->id}}">Не обработан</a>
+                                    <div class="buttonConfirm " data-id="{{$order->id}}">Не обработан</div>
                                 @endif
                             @endif
                         </td>

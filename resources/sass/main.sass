@@ -46,7 +46,7 @@ a
 .confirmed
     background-color: #d1e7dd
     border-color: #badbcc
-.canseled
+.canceled
     background-color: #f8d7da
     border-color: #f5c2c7
 .pending
@@ -89,3 +89,31 @@ a
 .table-image
     max-height: 500px
     max-width: 500px
+
+.manager-product-view
+    display: flex
+    background-color: $mainBcg
+    color: $mainColor
+    margin: 25px
+    padding: 10px
+    border: 3px solid grey
+    border-radius: 15px
+    justify-content: space-between
+    .block_table
+        width: 50%
+
+// кнопки
+.buttonCancel, .buttonConfirm
+    border: 0.5px solid grey
+    border-radius: 5px
+    width: max-content
+    padding: 3px
+    &:hover
+        opacity: 0.5
+        cursor: pointer
+.buttonCancel
+    background-color: #f8d7da
+    border-color: #f5c2c7
+.buttonConfirm
+    background-color: #d1e7dd
+    border-color: #badbcc

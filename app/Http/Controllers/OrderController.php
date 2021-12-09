@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Services\OrderService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 
@@ -56,23 +54,15 @@ class OrderController extends Controller
 
     public function confirmOrder($id)
     {
-        $order = Order::where('id', $id)
-        ->first();
-        $order->confirm_admin = true;
-        $order->save();
-        $orderNew = Order::where('id', $id)->first();
-        $changed_at = $orderNew->updated_at;
+        $result = $this->orderService->confirmOrder($id);
 
-        return response()->json($changed_at);
+        return response()->json($result);
     }
 
     public function canсelOrder($id)
     {
-        $order = Order::where('id', $id)
-        ->first();
-        $order->cancel_reservation = true;
-        $order->save();
+        $result = $this->orderService->cancelOrder($id);
 
-        return redirect()->route('userOrders',['id' => Auth::user()->id])->with('message', 'Вы отменили заказ № '.$id);
+        return response()->json($result);
     }
 }

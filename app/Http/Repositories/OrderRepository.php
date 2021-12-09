@@ -36,9 +36,27 @@ class OrderRepository
         return $orders;
     }
 
-    public function confirmOrder()
+    public function confirmOrder($id)
     {
+        $order = $this->order->findOrFail($id);
+            $order->confirm_admin = true;
+        $order->save();
 
+        $order->fresh();
+        $changed_at = $order->updated_at;
+
+        return $changed_at;
     }
 
+    public function cancelOrder($id)
+    {
+        $order = $this->order->findOrFail($id);;
+            $order->cancel_reservation = true;
+        $order->save();
+
+        $order->fresh();
+        $changed_at = $order->updated_at;
+
+        return $changed_at;
+    }
 }

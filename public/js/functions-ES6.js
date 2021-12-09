@@ -56,7 +56,6 @@ function fetchSearchInput(input, url, mes){
                 )
                 .then(
                     json => {
-                        console.log(json);
                         mes.innerHTML = '';
                         for(let obj of json){
                             let route;
@@ -82,7 +81,6 @@ function fetchSendForm(form, url, message, text = ''){
         event.preventDefault();
         let button = form.querySelector('[type = "submit"]');
         button.setAttribute('disabled', 'disabled');
-        console.log(button);
         let formData = new FormData(form);
         let fetchData = {
             method: 'POST',
@@ -128,7 +126,6 @@ function fetchDeleteButton(button, text = 'Удаление прошло усп�
     let url = button.dataset.href;
 
     button.addEventListener('click', function(){
-        console.log('in');
         button.setAttribute('disabled', 'disabled');
         fetch(url)
            .then(

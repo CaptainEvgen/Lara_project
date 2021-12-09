@@ -3,7 +3,7 @@
     <section class="food-section">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-lg-6">
+                <div class="col-lg-6">
                     <div class="description-block">
                         <div class="description-block__main-para">Food</div>
                         <div class="description-block__secondary-para">Discover Restaurant & Delicious Food</div>
@@ -17,12 +17,10 @@
                             </div>
                         </form>
                         <div class="search-list">
-
                         </div>
-
                     </div>
                 </div>
-                <div class="col-12 col-lg-6 carousel-wrapper">
+                <div class="col-lg-6 carousel-wrapper">
                     <div class="row">
                         <div class="col-6">
                             <div class="bg-block"></div>
@@ -86,18 +84,22 @@
             </div>
         </div>
         <div class="restaurant-preview">
-            @foreach ($res as $re)
+            @foreach ($randomRestaurants as $randomRestaurant)
                 <div class="preview-block">
-                    <img src="{{ asset('images/firewatterimg.png') }}" class="preview-block__image">
+                    @if ($randomRestaurant->product->all() !== [])
+                        <img src="{{ asset($randomRestaurant->product->shuffle()->first()['photo']) }}" class="preview-block__image">
+                    @else
+                        <img src="{{ asset('images/foodforfree.png') }}" class="preview-block__image">
+                    @endif
                     <div class="preview-block__info">
-                        <div class="preview-block__info-name">{{ $re->name }}</div>
+                        <div class="preview-block__info-name">{{ $randomRestaurant->name }}</div>
                         <div class="preview-block__info-description">we are all about we are all about to the fullest and
                             all content dining out or in!dining out or in!</div>
                         <div class="preview-block__info-location">
                             <img src="images/location.svg" class="location-block__image">
-                            <div class="location-name">{{ $re->location_name }}</div>
+                            <div class="location-name">{{ $randomRestaurant->location_name }}</div>
                         </div>
-                        <a href="{{ route('byRestaurant', ['id' => $re->id]) }}">
+                        <a href="{{ route('byRestaurant', ['id' => $randomRestaurant->id]) }}">
                             <div class="preview-block__info-button">Список блюд</div>
                         </a>
                     </div>

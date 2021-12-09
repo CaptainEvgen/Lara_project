@@ -114,9 +114,9 @@
                     </div>
                 </div>
             </header>
-            <section class="main">
+            <main class="main">
                 @yield('main')
-            </section>
+            </main>
             @yield('footer')
 
         </div>
