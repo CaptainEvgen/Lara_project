@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Role;
 use App\Models\Order;
 use App\Models\Restaurant;
+use App\Models\GoogleAccount;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
@@ -55,5 +56,9 @@ class User extends Authenticatable
     }
     public function order(){
         return $this->hasMany(Order::class);
+    }
+    public function googleAccounts()
+    {
+        return $this->hasMany(GoogleAccount::class);
     }
 }
