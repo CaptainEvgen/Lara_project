@@ -13610,8 +13610,9 @@ h5,
   color: #2E266F;
   opacity: 0.6;
 }
-.table-input:hover {
+.table-input:hover, .table-input:focus {
   cursor: pointer;
+  box-shadow: none;
 }
 .table-info {
   display: flex;
