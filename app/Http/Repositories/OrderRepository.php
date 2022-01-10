@@ -2,7 +2,9 @@
 
 namespace App\Http\Repositories;
 
+use Carbon\Carbon;
 use App\Models\Order;
+use Spatie\GoogleCalendar\Event;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -24,6 +26,16 @@ class OrderRepository
             $order->date = $data['date'];
             $order->guests = $data['guests'];
         $order->save();
+
+        $event = new Event;
+        $event->description = $data['guests'].' guests. Tel: '.Auth::user()->telephone_number.' Order on: '.$data['date'].'/'.$data['time'];
+        $event->name = Auth::user()->first_name.''.Auth::user()->last_name;
+        // $event->startDateTime = Carbon::now();
+        // $event->endDateTime = Carbon::now()->addHour();
+        $event->startDateTime = Carbon::parse($data['date'].' '.$data['time']);
+        $event->endDateTime = (clone $event->startDateTime)->addHour();
+        // dd($event->startDateTime);
+        $event->save();
 
         return $order->fresh();
     }

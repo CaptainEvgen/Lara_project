@@ -1,10 +1,13 @@
 <?php
 
+use Carbon\Carbon;
+use Spatie\GoogleCalendar\Event;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrderController;
+
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RestaurantController;
 
@@ -18,6 +21,23 @@ use App\Http\Controllers\RestaurantController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/test-c', function(){
+    $descs=[
+        'adsfgsdf', 'sdfgsdfg', 'sdfgdsfg'
+    ];
+    $names=[
+        'name1', 'name2', 'name3'
+    ];
+
+    $event = new Event;
+    $event->description = 'A new desc';
+    $event->name = 'A new event';
+    $event->startDateTime = Carbon::now();
+    $event->endDateTime = Carbon::now()->addHour();
+
+    $event->save();
+});
 
 
 Route::get('/', [HomeController::class,'showHomePage'])->name('homepage');
